@@ -7,21 +7,21 @@ body, html {
 
   
   h1 {
-	font-size: 35px;
+	font-size: 2.2em;
 	color: black;
 	font-weight: 700;
-	padding-top: 10px;
+	padding-top: 0.46em;
   }
   
   h2{
-	font-size: 13px;
+	font-size: 0.8em;
 	font-weight: 100;
 	margin: 2px;
 	font-style: italic;
   }
   
   h3{
-	font-size: 13px;
+	font-size: 0.8em;
 	font-weight: 100;
 	margin: 2px;
 	margin-bottom: 40px;
@@ -29,10 +29,11 @@ body, html {
   
   p {
 	font-family: Andale Mono;
+	font-size: 0.97em;
   }
 
   ol li {
-	font-size: 15px;
+	font-size: 0.97em;
 	font-family: Andale Mono;
   }
 
