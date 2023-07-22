@@ -47,5 +47,6 @@ body, html {
   }
 
   a {
+	font-size: 0.97em;
 	color: red;
   }
