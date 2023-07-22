@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta author='Karyn Nakamura'>
+	<title>KARYN NAKAMURA</title>
+	<meta name="viewport" content="initial-scale=1" /> 
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <link rel="image_src" href="folder.png"/>
+	<meta property="og:image" content = "folder.png" />
+	<link rel="icon" href="folder.png">
+
+
+	<style type="text/css">
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+}
+
+
+.title {
+  font-size: 35px;
+  color: red;
+  text-decoration: none;
+  filter: drop-shadow(0px 0px 5px yellowgreen);
+  position: absolute;
+  padding-top: 10px;
+  top: 20px;
+  left: 10px;
+  line-height: 30px;
+  animation: rotate2 6s ease-in-out infinite;
+}
+
+.stretch {
+  transform: scale(1, 2);
+}
+
+.list{
+  font-size: 20px;
+  position: relative;
+  top: 100px;
+  left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+}
+
+ul {
+  list-style-type: square;
+}
+
+.works{
+  filter: drop-shadow(0px 0px 5px red);
+}
+
+.info{
+  filter: drop-shadow(0px 0px 5px red);
+}
+
+.work{
+  font-size: 18px;
+  font-weight: 100;
+}
+
+a {
+  color: red;
+  text-decoration: none;
+}
+
+.desktopimg {
+  height: 100vh;
+  width: 100vw;
+  opacity: 3%;
+  filter: brightness(100%);
+  position: fixed;
+  top: 0;
+}
+
+#bg{
+  height: 100vh;
+  width: 100vw;
+  opacity: 6%;
+  position: fixed;
+  top: 0;
+  background-image: url("https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif");
+  background-repeat: repeat
+}
+
+.rotatingText:nth-of-type(1) {
+  animation-name: rotate;
+  animation-duration: 3s;
+  animation-delay: 0.5s;
+}
+
+@keyframes rotate {
+  50% { transform: rotate3d(-1, 1, -1, 180deg);}
+  100% { transform: rotate3d(-1, 1, -1, 330deg); }
+}
+
+@keyframes rotate2 {
+}
+
+@keyframes spinner {
+    0% { transform: rotate3d(1, 1, 1, 0deg); }
+    50% { transform: rotate3d(1, 1, 1, 180deg); }
+    100% { transform: rotate3d(1, 1, 1, 360deg); }
+}
+
+ 	</style>
+</head>
+
+<body>
+    <div>
+      <img class = "desktopimg" src = "https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif" >
+      
+
+      <div class="title stretch">Index of /KARYN NAKAMURA</div>
+      <div class="list">
+        <ul><li><a class = "info" href = "info.html">Info/</a></li>
+        <li>Everything/</li>
+        <ul>
+          <li>2023/</li>
+          <ul class = "works">
+            <li><a class = "work" id = "1" description = "https://www.dropbox.com/s/qrwa8tynjmluxet/IMG_4411.jpeg?raw=1" target = "_self" href = "2023/Thesis Cable.html">Thesis Cable</a></li>
+            <li><a class = "work" id = "2" description = "https://www.dropbox.com/s/xld9p69onvrmvgh/Screen%20Shot%202023-06-12%20at%2015.50.43.png?raw=1" target = "_self" href = "2023/Thesis Presentation (normal).html">Thesis Presentation (normal)</a></li>
+            <li><a class = "work" id = "3" description = "https://www.dropbox.com/s/ayqlzbks5b7zi4b/IMG_2376.jpeg?raw=1" target = "_self" href = "2023/BREAK MY BODY LIBERATE MY SOUL.html">BREAK MY BODY LIBERATE MY SOUL</a></li>
+          </ul>
+          <li>2022/</li>
+          <ul class = "works">
+            <li><a class = "work" id = "4" description = "https://www.dropbox.com/s/h2dzit5wb4t1zaa/3.%20Screen%20Shot%202023-01-15%20at%2023.54.06.png?raw=1" target = "_self" href = "2022/This program cannot be paused.html">This program cannot be paused.</a></li>
+            <li><a class = "work" id = "5" description = "https://www.dropbox.com/s/1uf58jms7fxt1gm/IMG_0434.jpeg?raw=1" target = "_self" href = "2022/140 Year Multi-Generational Wet & Hot Man-Sized Effort.html">140 Year Multi-Generational Wet & Hot Man-Sized Effort</a></li>
+            <li><a class = "work" id = "6" description = "https://www.dropbox.com/s/51xfh4d4czfyug7/4.%20IMG_6456.jpeg?raw=1" target = "_self" href = "2022/I’m looking for the most loved video cable.html">I'm looking for the most loved video cable. Do you guys carry that here?</a></li>
+            <li><a class = "work" id = "7" description = "https://www.dropbox.com/s/jz3itlg8gwns1us/2.%20Screen%20Shot%202023-01-14%20at%2023.17.53.png?raw=1" target = "_self" href = "2022/THIS LIFE IS ETERNAL.html">THIS LIFE IS ETERNAL</a></li>
+            <li><a class = "work" id = "8" description = "https://www.dropbox.com/s/chz36x7jjbdzrqx/Screen%20Shot%202023-01-09%20at%2016.54.56.png?raw=1" target = "_self" href = "2022/ARE YOU SOFT.html">ARE YOU SOFT?</a></li>
+            <li><a class = "work" id = "9" description = "https://www.dropbox.com/s/3g3yux6yuwikb1t/img2%20copy.jpg?raw=1" target = "_self" href = "2022/ENTERING 26.html">ENTERING 26</a></li>
+            <li><a class = "work" id = "10" description = "https://www.dropbox.com/s/wfrxz0x1c2gsc80/8.%20coverimg.png?raw=1" target = "_self" href = "2022/Bleed.html">Bleed</a></li>
+            <li><a class = "work" id = "11" description = "https://www.dropbox.com/s/k897huhbmegqx8g/1.%20DSC00555.jpg?raw=1" target = "_self" href = "2022/116 X 31.html">116 X 31</a></li>
+            <li><a class = "work" id = "12" description = "https://www.dropbox.com/s/zn8q55wy4pfokdj/cover.png?raw=1" target = "_self" href = "2022/wobblymp4.html">wobbly.mp4</a></li>
+            <li><a class = "work" id = "13" description = "https://www.dropbox.com/s/8fa5xxt5whhknk8/VL2R.png?raw=1" target = "_self" href = "2022/Gray as in weird gradient.html">Gray as in weird gradient</a></li>
+            <li><a class = "work" id = "14" description = "https://www.dropbox.com/s/8u8l5sg1v2ezs1w/IMG_0918.jpeg?raw=1" target = "_self" href = "2022/My Canon TS 6030 sucks.html">My Canon TS 6030 sucks!</a></li>
+            <li><a class = "work" id = "15" description = "https://www.dropbox.com/scl/fi/jj4wak4urzfhzaan7inv0/Screen-Shot-2023-02-10-at-0.09.56.png?rlkey=2mwqcwzdo2fvgy3qljmqem8dl&raw=1" target = "_self" href = "2022/Web (barcode).html">Web (barcode)</a></li>
+            <li><a class = "work" id = "16" description = "https://www.dropbox.com/scl/fi/reot3ppzffmlgb1hyji9v/Screen-Shot-2023-07-21-at-13.10.44.png?rlkey=rqiv2qfo1ka0ptjbb6sdzbqfq&raw=1" target = "_self" href = "2022/Misc.html">Misc.</a></li>
+          </ul>
+          <li>2021/</li>
+          <ul class = "works">
+            <li><a class = "work" id = "17" description = "https://www.dropbox.com/s/zqh6gne557tfr2g/IMG_2544%20%281%29.jpeg?raw=1" target = "_self" href = "2021/Continuous Overflow.html">Continuous Overflow</a></li>
+            <li><a class = "work" id = "18" description = "https://www.dropbox.com/s/hdkygzlfjazzfe1/1.%20DSCF1659.jpg?raw=1" target = "_self" href = "2021/Enclosing Nothing.html">Enclosing Nothing</a></li>
+            <li><a class = "work" id = "19" description = "https://www.dropbox.com/s/zvk9g2d0v3vl334/1.%20cover.png?raw=1" target = "_self" href = "2021/Gradient on blowing sheet.html">Gradient on blowing sheet</a></li>
+            <li><a class = "work" id = "20" description = "https://www.dropbox.com/s/jhy4gobru9guq1k/still.png?raw=1" target = "_self" href = "2021/Activate.html">Activate</a></li>
+            <li><a class = "work" id = "21" description = "https://www.dropbox.com/s/4k45ta6y6w6zgkp/IMG_8469.jpeg?raw=1" target = "_self" href = "2021/Conversation with Anna.html">Conversation with Anna</a></li>
+            <li><a class = "work" id = "22" description = "https://www.dropbox.com/scl/fi/6299qgj40skqo8aiyzrh9/lightingantscover.jpeg?rlkey=rzfk7fpdufsl56pmlem8pz8pm&raw=1" target = "_self" href = "2021/Lighting for ants.html">Lighting for Ants</a></li>
+            <li><a class = "work" id = "23" description = "https://www.dropbox.com/s/chofh9j8b8ujs1l/1.%20cover.png?raw=1" target = "_self" href = "2021/Perpetual Dirt.html">Perpetual Dirt</a></li>
+            <li><a class = "work" id = "24" description = "https://www.dropbox.com/s/2gvl59ngq2695uy/IMG_7879.jpeg?raw=1" target = "_self" href = "2021/M412 DISMISSAL.html">M412 DISMISSAL</a></li>
+            <li><a class = "work" id = "25" description = "https://www.dropbox.com/s/op3adqau0z4vwf8/IMG_6444%20%281%29.jpeg?raw=1" target = "_self" href = "2021/You vs. Computer.html">You vs. Computer</a></li>
+            <li><a class = "work" id = "26" description = "https://www.dropbox.com/s/wdiyxycp3firkxq/2.%201%2C348%2C345km2.png?raw=1" target = "_self" href = "2021/DIY World Map for Cartographic Nihilists.html">DIY World Map for Cartographic Nihilists</a></li>
+            <li><a class = "work" description = "https://www.dropbox.com/s/o8xih0ymtiw7bnb/1.%20Screen%20Shot%202021-03-13%20at%209.41.47.png?raw=1" target = "_self" href = "2021/Disposable Keys.html">Disposable Keys</a></li>
+            <li><a class = "work" description = "https://www.dropbox.com/s/t3aplqf8eirtxi7/1.%20img.png?raw=1" target = "_self" href = "2021/Schoenberg Scribble.html">Schoenberg Scribble</a></li>
+            <li><a class = "work" description = "https://www.dropbox.com/s/ivafb324pbpfhv0/1.%20speakevil.png?raw=1" target = "_self" href = "2021/Public Projection Interventions.html">Public Projection Interventions</a></li>
+            <li><a class = "work" description = "https://www.dropbox.com/s/45mzqzra8cq1klo/1.%20Hybrid%20Moment.png?raw=1" target = "_self" href = "2021/Interactive Projection Installations.html">Interactive Projection Installations</a></li>
+            <li><a class = "work" description = "https://www.dropbox.com/s/nlr2rpz87fp3uei/7.%20Audio%20Drops.png?raw=1" target = "_self" href = "2021/Interactive Animations.html">Interactive Animations</a></li>
+            <li><a class = "work" description = "https://www.dropbox.com/s/08ym9qmt35j7g2q/5.%20monopo%20NYC.png?raw=1" target = "_self" href = "2021/Websites.html">Websites</a></li>
+          </ul>
+          <li>2020/</li>
+          <ul class = "works">
+            <li><a class = "work" description = "https://www.dropbox.com/s/lzk9ry9b2h1ifep/Screen%20Shot%202023-01-15%20at%2023.50.26.png?raw=1" target = "_self" href = "2020/10 Second Reverberations.html">10 Second Reverberations</a></li>
+            <li><a class = "work" description = "https://www.dropbox.com/s/x7384y3tnjqyeo6/3.%20VisualizeNYC.png?raw=1" target = "_self" href = "2020/Data Visualizations.html">Data Visualizations</a></li>
+          </ul>
+        </ul>
+        </ul>
+        <br><br>
+      </div>
+    </div>
+
+<script type="text/javascript">
+let static = "https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif"
+let thumbnail = ""
+
+let popwidth = (screen.width - 600)*0.5
+let popheight = (screen.width - 500)*0.2
+
+let params = "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=500,left=" + popwidth + ",top=" + popheight
+ 
+
+d3.selectAll(".work")
+
+  .on('mouseenter', function() { 
+      thumbnail = d3.select(this).attr("description")
+      imgurltext = "url('" + thumbnail + "')"
+      d3.select(".desktopimg").attr("src", thumbnail).style("opacity", "80%").style("filter", "brightness(35%)")
+  })
+
+  .on('mouseout', function() { 
+    d3.select(".desktopimg").attr("src", static).style("opacity", "3%").style("filter", "brightness(100%)")
+
+  })
+
+  //.on("click", function() { 
+    //popurl = d3.select(this).attr("href").toString().slice(0,-5) + "-txt.html"
+    //window.open(popurl, 'text', params);
+  //  })
+
+d3.select(".info").on("click", function() { 
+    window.open("info-txt.html", 'text', params);
+    })
+
+</script>
+</body>
+</html>
