@@ -10,6 +10,8 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+
 </head>
 
 <body>
@@ -17,23 +19,46 @@
 
 
 	<p><img src="https://www.dropbox.com/s/wdiyxycp3firkxq/1%2C348%2C345km2.png?raw=1" alt="1,348,345km2 (average area of a country in Mercator projection)"></p>
-	<p2 style = "color: red; margin: 10px;">1,348,345km2 (average area of a country in Mercator projection)</p2>
+	<p2 style = "margin: 10px;">1,348,345km2 (average area of a country in Mercator projection)</p2>
 	<p><img src="https://www.dropbox.com/s/zc29n5servt82av/America%27s%20nightmare.png?raw=1" alt="America&#39;s nightmare"></p>
-	<p2 style = "color: red; margin: 10px;">America's nightmare</p2>
+	<p2 style = "margin: 10px;">America's nightmare</p2>
 	<p><img src="https://www.dropbox.com/s/7yjgz2t07s0lqrf/China%2C%20Japan%2C%20Slovakia%2C%20Cuba%2C%20and%20Nigeria%20rule%20the%20world%21.png?raw=1" alt="China, Japan, Slovakia, Cuba, and Nigeria rule the world!"></p>
-	<p2 style = "color: red; margin: 10px;">China, Japan, Slovakia, Cuba, and Nigeria rule the world!</p2>
+	<p2 style = "margin: 10px;">China, Japan, Slovakia, Cuba, and Nigeria rule the world!</p2>
 	
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.dropbox.com/s/3ll9vy77d8mys6u/1.%20nihilistdemo.mp4?raw=1"></iframe>
-
+	<br><br>
+		
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="DIY World Map for Cartographic Nihilists-txt.html" 
-  	target="popup" 
-  	onclick="window.open('DIY World Map for Cartographic Nihilists-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+
+
+
+	<div class = "title">
+		<h1 id="diy-world-map-for-cartographic-nihilists">DIY World Map for Cartographic Nihilists</h1>
+		<h2>March 2021</h2>
+		<h3>A website to create your own map by letting users modify the size of every country in any way they desire.	</h3>
+	</div>
+	
+
+	<div class = "scroll">
+		<p>Link: <a href = "https://karynn.github.io/worldmap/WORLDMAP.html">https://karynn.github.io/worldmap/WORLDMAP.html</a></p>
+
+		<h2>ABOUT: </h2>
+		<p>The Mercator projection is known for its enlargement of the Northern hemisphere which was used by the British Empire to exaggerate the amount of land they occupied. People get pretty aggressive about criticizing Mercator projection, arguing that it’s a remnant of colonialism perpetuating the view that developing countries are inferior.</p>
+		<br>
+		<p>I made this DIY world map website so that you, too, can take advantage of the technique pioneered by the British Empire: exploiting scale. You can make any country as big or as small as they want.  You can make your favorite country really really big and explode. Or you can make it really small and hide it so no one gets to see it. </p>
+		<br>
+		<p>It’s kind of an insane thing to try to represent a sphere on a sheet.  It’s also kind of an insane thing to imagine what the ground looks like from distances 10^(some large number) times our heights. I just hope your DIY map makes sense to you.</p>
+		<br>
+		<h2>TECHNICAL INFO: </h2>
+		<p>Made using d3.js and topoJSON.</p>
+		<br>
+	<br><br>
+	</div>
+
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

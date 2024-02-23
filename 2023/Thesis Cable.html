@@ -10,21 +10,32 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 
 <body>
 	<p><img src="https://www.dropbox.com/s/qrwa8tynjmluxet/IMG_4411.jpeg?raw=1" alt=""></p>
 	<p><img src="https://www.dropbox.com/scl/fi/nyv14w7gjdf6mowllq52n/IMG_4410.jpeg?rlkey=go29z38dhxq3264j81fa4l1nq&raw=1" alt=""></p>
 
+<div class = "mask"></div>
+
 <div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="Thesis Cable-txt.html" 
-  	target="popup" 
-  	onclick="window.open('Thesis Cable-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+	<div class = "title">
+		<h1 id="thesis-cable">Thesis Cable</h1>
+		<h2>May 2023</h2>
+		<h3>VGA cable I used to present my undergraduate thesis made of wires, beads, VGA pins, and a VGA cable split in half</h3>
+	</div>
+
+	<div class = "scroll">
+		<h2>ABOUT: </h2><br>
+		<p>Handmade cable I used to present my thesis presentation. Six wires that connect individual VGA pins were assembled on the spot during/as part of my thesis presentation. </p>
+		<br>
+		<p>Watch the full perforamnce <a href="https://www.youtube.com/watch_popup?v=CxmTsXhxtkk&vq=1080">here</a></p>
+		<br><br>
+	</div>
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

@@ -10,9 +10,11 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 
 <body>
+
 	<p><img src="https://www.dropbox.com/scl/fi/xzl2fovq1czv2tijmr9f2/_DSF6390-Edit.jpg?rlkey=f56tr0knoruh0rly1lj4uxtl7&raw=1" alt=""></p>
 	<p><img src="https://www.dropbox.com/scl/fi/19a06qe1um4cxq2n0d3w0/_DSF6199.jpg?rlkey=nhktttm55xzqfx89dx0n0n3sh&raw=1" alt=""></p>
 	<p><img src="https://www.dropbox.com/scl/fi/vaznowxg3ouzkzakotm5c/YB011274.jpg?rlkey=b03xdj1umape7gxxzjq7l3vlm&raw=1" alt=""></p>
@@ -27,15 +29,65 @@
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.youtube.com/watch_popup?v=fO05cNWDSY4&vq=1080"></iframe>
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.youtube.com/watch_popup?v=bMXnn4GV1kw&vq=1080"></iframe>
 	
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="noise pile-txt.html" 
-  	target="popup" 
-  	onclick="window.open('noise pile-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+
+
+
+	<div class = "title">
+		<h1 id="noise pile">noise pile</h1>
+		<h2>December 2023</h2>
+		<h3>A sculpture of disassembled music hardware and 8 channels of generative video in a pile that encapsulated a NY based jazz duo performing live from inside.</h3>
+	</div>
+
+	<div class = "scroll">
+		<p><a href="https://www.youtube.com/watch_popup?v=fO05cNWDSY4">Video (live performance)</a></p></n>
+		<p><a href="https://www.youtube.com/watch_popup?v=bMXnn4GV1kw">Video (Installation)</a></p><br>
+
+		<h2>PRESS:</h2>
+			<p><a href="https://i-d.vice.com/ja/article/k7zye3/domicile-tokyo-karyn-nakamura-noise-pile">i-D Japan</a></p>
+			<p><a href="https://themassage.jp/en/archives/20044">Massage Magazine</a></p>
+			<p><a href="https://note.com/monopo_tokyo/n/n8514a39b750b">Interview by monopo Tokyo</a></p>
+			<br>
+
+		<p>Official Post <a href="https://www.instagram.com/frog_spit_simulation/p/Cz_PDAIrPCF/?img_index=1">here</a></p>
+		<br>
+
+		<h2>ABOUT:</h2>
+			<p>A sculpture of disassembled music hardware and 8 channels of generative video that encapsulated a NY based jazz duo performing live from inside. 2 live camera inputs were run through a facial landmark tracking algorithm to break apart the musicians facial features and disperse them across the sculpture on the 8 screens which was further computationally manipulated to appear as if they were swapping and moving in between the screens (all realtime rendering). Eyes, keys, mouths, sticks, poles, noses, hands, the elements all together, but without order in a cybernetic noise-making pile.</p>
+			<br>
+			<p>This installation and performance ran for 9 days at DOMICILE a boutique shop in Tokyo.</p>
+			<br>
+			<p>2 cameras + 8 screens + 1 drum set + 4 keyboards + 2 musicians (or 1 Human Squared) + 40 drum stands + 5 mic stands + 6 music stands + 5 monitor arms + 1 RTX 3070 computer + 1 face tracking video distortion program + 1 pair of speakers + 384774 cables + gravity + balance + some gaff tape = one live noise making pile.</p>
+		<br>
+
+		<h2>TECHNICAL INFO:</h2>
+			<p>The media distribution system was a small-form computer with a RTX graphics card with kind of a hacky mod on one of the m.2 slots that I built specifically to capture the two live video inputs and process video which was then distributed on two video splitters for 8 channels of live video output.</p>
+			<br>
+			<p>The main software was a custom program I made in Touchdesigner to take the two camera inputs, run facial landmark tracking on them, and crop, zoom in, and split the video into 8 streams of left eye, right eye, nose, and mouth for 2 faces. The program also had a modular effects patch I built to distort, rearrange, swap, and run all kinds of visual manipulations on the 8 channels of face part videos.</p>
+			<br>
+			<p>I carried three computers and all expensive video hardware on my back to Japan, scavenged recycling stores for remaining video equipment, collected most of the music hardware for the pile on the Japanese equivalent of eBay, and rented some AV equipment for the band. I installed the pile of music hardware and wired the video distribution network by myself in two days.</p>
+			<br>
+			<p>Funding for this project came from a Kickstarter campaign I ran after my curator secured the venue at DOMICILE as well as a donation from PROOF and non monetary support which included monopo Tokyo who provided speakers, Shibuya TV that streamed a video advertisement of the show on two huge billboards in Shibuya for two weeks, and friends who donated and lent equipment.</p>
+		<br>
+
+
+		<h2>ACKNOWLEDGEMENTS:</h2>
+			<p>With Human Squared</p>
+			<p>Curated by Kazuki Chito</p>
+			<p>Supported by PROOF, monopo Tokyo, Shibuya Television, and all Kickstarter supporters</p>
+			<br>
+			<p>Photos by monopo Tokyo and Rin Nagamoto</p>
+			<p>Graphic design by Nafhan NQ</p>
+		<br>
+		
+		<br><br>
+	</div>
+
 </div>
+
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

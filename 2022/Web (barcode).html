@@ -10,20 +10,33 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+
 </head>
 
 <body>
-	<iframe style = " height: 100vh; width: 100vw; position: fixed; top: 0;" src = "https://karynn.github.io/karynnet-dec21/BARCODE.html"></iframe>
+	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.dropbox.com/s/qrwc5awhyordcpo/2022web.mov?raw=1"></iframe>
 		
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="Web (barcode)-txt.html" 
-  	target="popup" 
-  	onclick="window.open('Web (barcode)-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+
+	<div class = "title">
+		<h1 id="web--barcode-">Web (barcode)</h1>
+		<h2>January 2022</h2>
+		<h3>Personal website design featuring a visualization of the amount of time I spent on each project as a barcode.</h3>
+	</div>
+	
+
+	<div class = "scroll">
+		<p>Link: <a href = "https://karynn.github.io/karynnet-dec21/BARCODE.html" >https://karynn.github.io/karynnet-dec21/BARCODE.html</a></p>
+		<h2>TECHNICAL INFO: </h2>
+			<p>Built using d3.js</p>
+			<br>
+		<br><br>
+		</div>
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

@@ -10,6 +10,7 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
 
 	<style type="text/css">
 	.row {
@@ -28,9 +29,6 @@
 		border-width: 0px;
 	}
 
-	video {
-		width: 600vw;
-	}
 
 	</style>
 </head>
@@ -44,7 +42,7 @@
 			<iframe src = ""></iframe>
 		</div>
 	</div>
-	<p2 style = "color: red; margin: 10px;">Horizontal left to right</p2>
+	<p2 style = "margin: 10px;">Horizontal left to right</p2>
 	<div class = "row">
 		<div class = "column">
 			<p><img style = "width: 50vw;" src="https://www.dropbox.com/s/21icx0snjncjd35/HL2Rinv.png?raw=1" alt="Horizontal left to right"></p>
@@ -53,7 +51,7 @@
 			<iframe src = ""></iframe>
 		</div>
 	</div>
-	<p2 style = "color: red; margin: 10px;">Horizontal left to right inverted</p2>
+	<p2 style = "margin: 10px;">Horizontal left to right inverted</p2>
 	<div class = "row">
 		<div class = "column">
 			<p><img style = "width: 50vw;" src="https://www.dropbox.com/s/97rm1ka3g92rrhz/HR2L.png?raw=1" alt="Horizontal left to right"></p>
@@ -62,7 +60,7 @@
 			<iframe src = ""></iframe>
 		</div>
 	</div>
-	<p2 style = "color: red; margin: 10px;">Horizontal right to left</p2>
+	<p2 style = "margin: 10px;">Horizontal right to left</p2>
 	<div class = "row">
 		<div class = "column">
 			<p><img style = "width: 50vw;" src="https://www.dropbox.com/s/m5347ffn6bwe2vr/HR2Linv.png?raw=1" alt="Horizontal left to right"></p>
@@ -71,7 +69,7 @@
 			<iframe src = ""></iframe>
 		</div>
 	</div>
-	<p2 style = "color: red; margin: 10px;">Horizontal right to left inverted</p2>
+	<p2 style = "margin: 10px;">Horizontal right to left inverted</p2>
 	<div class = "row">
 		<div class = "column">
 			<p><img style = "width: 50vw;" src="https://www.dropbox.com/s/8fa5xxt5whhknk8/VL2R.png?raw=1" alt="Horizontal left to right"></p>
@@ -80,7 +78,7 @@
 			<iframe src = ""></iframe>
 		</div>
 	</div>
-	<p2 style = "color: red; margin: 10px;">Vertical left to right</p2>
+	<p2 style = " margin: 10px;">Vertical left to right</p2>
 	<div class = "row">
 		<div class = "column">
 			<p><img style = "width: 50vw;" src="https://www.dropbox.com/s/t5mvumlxykv5zib/VL2Rinv.png?raw=1" alt="Horizontal left to right"></p>
@@ -89,7 +87,7 @@
 			<iframe src = ""></iframe>
 		</div>
 	</div>
-	<p2 style = "color: red; margin: 10px;">Vertical left to right inverted</p2>
+	<p2 style = "margin: 10px;">Vertical left to right inverted</p2>
 	<div class = "row">
 		<div class = "column">
 			<p><img style = "width: 50vw;" src="https://www.dropbox.com/s/bj7wf9eb6vttpra/VR2L.png?raw=1" alt="Horizontal left to right"></p>
@@ -98,7 +96,7 @@
 			<iframe src = ""></iframe>
 		</div>
 	</div>
-	<p2 style = "color: red; margin: 10px;">Vertical right to left</p2>
+	<p2 style = "margin: 10px;">Vertical right to left</p2>
 	<div class = "row">
 		<div class = "column">
 			<p><img style = "width: 50vw;" src="https://www.dropbox.com/s/gusl1al7kd2iqo3/VR2Linv.png?raw=1" alt="Horizontal left to right"></p>
@@ -107,17 +105,32 @@
 			<iframe src = ""></iframe>
 		</div>
 	</div>
-	<p2 style = "color: red; margin: 10px;">Vertical right to left inverted</p2>
+	<p2 style = "margin: 10px;">Vertical right to left inverted</p2>
+	<br><br>
 
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="Gray as in weird gradient-txt.html" 
-  	target="popup" 
-  	onclick="window.open('Gray as in weird gradient-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+
+
+
+	<div class = "title">
+		<h1 id="gray-as-in-weird-gradient">Gray as in weird gradient</h1>
+		<h2>March 2022</h2>
+		<h3>An experiment with variational autoencoders and its (nonfunctional) interpretation of sequence.</h3>	
+	</div>
+
+	<div class = "scroll">
+		<h2>TECHNICAL INFO: </h2>
+		<p>A Variational Autoencoder is a neural network architecture that can be trained on a batch of similar looking images to generate new, but similar looking images based on the characteristics it understands of the batch. I trained a Variational Autoencoder on a sequence of images of pixels filling in a square - in other words, two opposite images and every stage of difference in between.</p>
+		<br>
+		<p>A total of 8 different transition sequences were tested. Horizontal left to right, horizontal right to left, vertical left to right, vertical right to left, and each of their inverses. My stupid human brain kind of secretly hoped the result would make sense. Like a simple average of the images or something like that. I guess machine learning is pretty complicated because I ended up with some weird gradients. </p>
+		<br>
+	<br><br>
+	</div>
+	
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

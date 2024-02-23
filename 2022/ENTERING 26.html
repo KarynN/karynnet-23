@@ -10,6 +10,7 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 
 <body>
@@ -21,16 +22,36 @@
 	<p><img src="https://www.dropbox.com/s/esofysina9osnvx/12fakes000192.png?raw=1" alt=""></p>
 	<p><img src="https://www.dropbox.com/s/rjhhj5xva9qxjgz/5fakes000256.png?raw=1" alt=""></p>
 
-
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="ENTERING 26-txt.html" 
-  	target="popup" 
-  	onclick="window.open('ENTERING 26-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+	<div class = "title">
+		<h1 id="entering-26">ENTERING 26</h1>
+		<h2>May 2022</h2>
+		<h3>A custom LED sign of AI generated asemic glyphs secretly installed in an MIT hallway.</h3>
+	</div>
+
+	<div class = "scroll">
+		<p><a href="https://www.youtube.com/watch_popup?v=A8bgCjttihk&vq=1080">Video</a></p>
+		<br>
+		
+		<h2>ABOUT:</h2>
+		<p>The hallways of MIT are covered with signs, both regular and electronic that display the building numbers of the various buildings on campus in the format "Entering [building number]." By the entrance to building 26, I installed a sign that looks like it's supposed to say ENTERING 26 but something is wrong.</p>
+		<br>
+		<p>When the typical clear and commanding language of an electronic sign is glitched and cannot be fully understood, it is a bit spooky. The message is interrupted. Why? How? Who is communicating with you and what are they really trying to say?</p>
+		<br>
+
+		<h2>TECHNICAL INFO:</h2>
+		<p>I trained a StyleGAN on characters from various languages and used it to create Frankenstein asemic glyphs based on what the algorithm understands of the marks and symbols that we have decided mean something. The generated glyphs were picked, scaled down to the 5x7 dot resolution of the sign, and arranged into the message on the sign carefully and intentionally by me but obscured by our familiarity with glitched electronic signs.</p>
+		<br>
+		<br>
+		<p>When I was installing the sign, a janitor passing by asked me if it's in another language. The sign is still there as of December 2023.</p>
+		<br>
+
+	<br><br>
+	</div>
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

@@ -10,6 +10,7 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 
 <body>
@@ -22,15 +23,31 @@
 	<p><img src="https://www.dropbox.com/s/ercgbcsc7itmm5t/0ED2DA95-61E6-418B-9AFE-271CB1AB4F18.jpg?raw=1" alt=""></p>
 	<p><img src="https://www.dropbox.com/s/bvtoxbgwgwtcyr5/02B2D181-86D4-4334-B378-8DA1B24E9B3D.jpg?raw=1" alt=""></p>
 
+	<div class = "mask"></div>
+
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="ARE YOU SOFT-txt.html" 
-  	target="popup" 
-  	onclick="window.open('ARE YOU SOFT-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+
+	<div class = "title">
+		<h1 id="are-you-soft">ARE YOU SOFT?</h1>
+		<h2>May 2022</h2>
+		<h3>A live performance with 1 projector, 1 VGA monitor, 2 Frankensteined VGA cables, hammer, nail, pipette, glass, paper clips, and a block of wood. </h3>
+	</div>
+
+	<div id = "scroll" class = "scroll">
+		<h2>ABOUT: </h2><br>
+		<p>A live performance with a custom Frankenstein video cable carrying two channels of video - one of static white text on a black screen and the other, a live feed from an analog security camera capturing the capturing the cable itself being altered throughout the performance.</p>
+		<br>
+		<p>During the performance, the cable is cut, mixed, and swapped. Video signal is conducted through paper clips, droplets of water, hammered into a block of wood, and ultimately ingested along with spaghetti. The two channels of video and the resulting visual artifacts of this manipulation are evident on a VGA monitor and projection on the wall behind, which blows up the glitches into streaks of red and green running across the room that display the distortion of was supposed to be a sequence of static white text on a black background.</p>
+		<br>
+		<p>The text repeatedly questions the substance of this ephemeral medium. Video asks itself, through itself, what am I?</p>
+		<br>
+
+		<br><br>
+
+	</div>
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

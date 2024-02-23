@@ -10,6 +10,8 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+
 </head>
 
 <body>
@@ -18,15 +20,43 @@
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.youtube.com/watch_popup?v=ti2MrP2sbIw&vq=1080"></iframe>
 	<p><img src="https://www.dropbox.com/s/f07ur982lcah09p/6.%20Screen%20Shot%202022-05-25%20at%2022.50.07.png?raw=1" alt=""></p>
 
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="116 X 31-txt.html" 
-  	target="popup" 
-  	onclick="window.open('116 X 31-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+
+
+
+	<div class = "title">
+		<h1 id="116-x-31">116 x 31</h1>
+		<h2>April 2022</h2>
+		<h3>An interactive projection installation event on Simmons Hall, a 400ft wide 10 story dorm at MIT designed by Steven Holl Architects also known as “the sponge”</h3>
+	</div>
+
+	<div class = "scroll">
+		<h2>PRESS:</h2>
+			<p><a href="https://news.mit.edu/2022/mit-simmons-hall-interactive-canvas-0525">MIT News</a></p>
+			<p><a href="https://www.technologyreview.com/2022/08/24/1057242/sponge-art/">MIT Technology Review</a></p>
+			<p><a href="https://vimeo.com/719109215">Steven Holl Architects</a></p>
+			<br>
+		<h2>ABOUT: </h2>
+			<p>A 3 day interactive projection installation on Simmons Hall, a 400ft wide 10 story dorm at MIT designed by Steven Holl Architects also known as “the sponge”.  Each individual square window on the facade of Simmons was treated as a pixel. A generative animation of a resolution of 116X31 that responded to live audio from a mic set up in front of the building was projected onto the building.</p>
+			<br>
+		<h2>TECHNICAL INFO: </h2>
+			<p>The video was generated live on one computer running a custom program I made in Touchdesigner to take in audio and process it as a parameter in the generative pixel animation. This was then fed into a Disguise server used to map the video onto the building across 3 projectors set up on the field across from the building. </p>
+			<br>
+			<p>I wrote a proposal for this project with my research advisor Josh Higgason in the Theater department which was accepted by the Council of Arts at MIT in the fall of 2021. We ran one test with one projector and the Disguise server in February and I made the animation on a tiny mac laptop screen predicting movement and pacing at that scale based on everything I learned in that test.</p>
+			<br>
+		<h2>ACKNOWLEDGEMENTS: </h2>
+			<p>Collaboration with Josh Higgason (MIT Music and Theater Arts Technical Instructor) and supported by Council of the Arts at MIT.</p>
+			<br>
+		<br><br>
+	</div>	
+
+
+
+
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

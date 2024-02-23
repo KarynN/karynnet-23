@@ -11,9 +11,120 @@
 	<meta property="og:image" content = "folder.png" />
 	<link rel="icon" href="folder.png">
 </head>
+<style type="text/css">
+
+	.center {
+		display: flex;
+		align-items: center; /* Center vertically */
+    	justify-content: center; 
+    	height: 100vh;
+	}
+	.center img {
+    	width: auto;
+   		height: auto; 
+	}
+
+	.container {
+    display: flex;
+    flex-direction: row;
+	}
+
+	.image-container {
+		flex: 1;
+	}
+
+	.image-container img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	.text-container {
+		flex: 1;
+		padding: 20px;
+		color: white;
+		font-family: Jura; 
+		font-size: 16px; 
+		font-weight: 100;
+		line-height: 1.4em;
+		letter-spacing: 1px;
+		max-width: 70vw;
+	}
+
+	.text-container a {	
+		color: white;
+		filter: drop-shadow(0px 0px 5px cyan);
+		text-decoration: underline;
+		font-family: Aldrich;
+		font-size: 12px;
+		font-weight: 100;
+		letter-spacing: 1px;
+		line-height: 2em;
+		cursor: pointer;
+	}
+
+	@media (max-width: 766px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .text-container {
+        order: 1; 
+    }
+
+    .image-container {
+        order: 2; 
+    }
+
+    .text-container,
+    .image-container {
+        padding: 20px;
+    }
+}
+
+
+</style>
 
 <body>
-	<p><img src = "https://www.dropbox.com/scl/fi/tfdo45grm3920vng4gsgd/karynn.0.jpg?rlkey=qn01v5x7np90awqx5p942sm4w&raw=1"></p>
+	<div class="container">
+		<div class="image-container">
+			<div class = "center"><img style = "height: 100vh; width: auto;" src = "https://www.dropbox.com/scl/fi/m8tf3g6pbq11gptiwsa90/Karyn-head.png?rlkey=xyuo1hsqityrk71j611v9gn0v&raw=1"></div>
+		</div>
+		<div class="text-container">
+
+			<p>Hi! Welcome to my page, my name is Karyn Nakamura. I'm originally from Tokyo, recently graduated MIT with a Bachelor of Science in Art from MIT, and now based in NYC.</p>
+			<br>
+			<p>You might know me from some of my large-scale technical installations like the 400ft-wide 10-story building I projected onto 
+				<a target = "_blank" href = "https://news.mit.edu/2022/mit-simmons-hall-interactive-canvas-0525">(MIT News)</a>, or the abandoned Frank Gehry pub inside MIT’s CS building I filled with 60 screens and transformed into the stage of a 3 month video performance 
+				<a target = "_blank" href = "https://bostonartreview.com/reviews/mit-pub-performance-karyn-nakamura/">(Boston Art Review)</a> or when I encapsulated a NY based jazz duo in a pile of disassembled music hardware at a boutique in Tokyo 
+				<a target = "_blank" href = "https://i-d.vice.com/ja/article/k7zye3/domicile-tokyo-karyn-nakamura-noise-pile">(iD Japan)</a>, or maybe ! you’ve seen the LED sign of AI generated asemic glyphs I secretly installed in a MIT hallway 👁️ </p>
+			<br>
+			<p>I am interested in laterally connecting disparate streams of technology, turning black-boxed intricacies inside out, and bringing technology back into the realm of intuition, perception, emotion, and broader human connection.</p>
+			<br>
+
+			<p>Instagram >> <a target = "_blank" href = "https://www.instagram.com/frog_spit_simulation/">@frog_spit_simulation</a></p>
+			<p>Email >> <a target = "_blank" href = "">karynnakamura68@gmail.com</a></p>
+			<p>Youtube >> <a target = "_blank"  href = "https://www.youtube.com/channel/UCk7xGaYDNtxAKN9zEBc70wg">@karyn_nakamura</a></p>
+			
+			<br>
+			<br>
+			
+			<p style = "font-size: 12px">Solo Shows:</p>
+			<div style = "font-size: 10px">
+			<p>noise pile at DOMICILE Tokyo (2023)</p>
+			<p>Digging at Tata Bookshop  (2023)</p>
+			<p>BREAK MY BODY LIBERATE MY SOUL at the MIT Stata Center R&D Pub  (2023)</p>
+			<p>116 X 31 at MIT Simmons Hall  (2022)</p>
+			</div>
+			<br>
+			<p style = "font-size: 12px">Group Shows:</p>
+			<div style = "font-size: 10px">
+			<p>Emissive at MIT Compton Gallery (2022)</p>
+			<p>Waves at Same Gallery, C7C gallery, Lian, Haku Kyoto, ie (2022)</p>
+			<p>MAPP Montreal (2021)</p>
+			</div>
+		</div>
+	</div>
+
 	<p><img src = "https://www.dropbox.com/scl/fi/ga35f9j2q903zwopjvecy/IMG_1058.JPG?rlkey=ci5prekxccaw37osxl101s1dt&raw=1" ></p>
 	<p><img src = "https://www.dropbox.com/s/odfmcqzbgwmkdej/Screen%20Shot%202022-07-17%20at%201.26.47.png?raw=1"></p>
 	<p><img src = "https://www.dropbox.com/s/xld9p69onvrmvgh/Screen%20Shot%202023-06-12%20at%2015.50.43.png?raw=1"></p>
@@ -21,13 +132,5 @@
 
 	<div class = "footer">
 	<a class = "back" href = "root.html">back</a>
-	<a class = "text" href="info-txt.html" 
-  	target="popup" 
-  	onclick="window.open('info-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>

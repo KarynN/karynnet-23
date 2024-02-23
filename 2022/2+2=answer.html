@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="../basestyle.css" type="text/css">
+	<meta charset="UTF-8"/>
+	<meta author='Karyn Nakamura'>
+	<title>2+2 = answer</title>
+	<meta name="viewport" content="initial-scale=1" /> 
+  	<link rel="image_src" href="../folder.png"/>
+	<meta property="og:image" content = "../folder.png" />
+	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+
+</head>
+
+<body>
+	<p><img src="https://www.dropbox.com/s/5hubuxwkskbd7el/slide10.jpg?raw=1" alt=""></p>
+	<p><img src="https://www.dropbox.com/s/s1q85zjhvcprlzn/scrnsht.png?raw=1" alt=""></p>
+	<p><img src="https://www.dropbox.com/s/7rri5m7iwh6z98c/slide2.jpg?raw=1" alt=""></p>
+	<p><img src="https://www.dropbox.com/s/a2bdj9q04lm0ux1/demo1.png?raw=1" alt=""></p>
+	<p><img src="https://www.dropbox.com/s/rb5axgixsi93v3a/demo2.png?raw=1" alt=""></p>
+	<p><img src="https://www.dropbox.com/s/bmcrnqwxp3k1eg1/slide1.jpg?raw=1" alt=""></p>
+	<p><img src="https://www.dropbox.com/s/ytxhyyyh9x0ut22/slide9.jpg?raw=1" alt=""></p>
+
+		
+	<div class = "mask"></div>
+	<div class = "footer">
+	<a class = "back" href = "../root.html">back</a>
+	<a class = "text">text</a>
+
+
+
+
+	<div class = "title">
+		<h1>2 + 2 = Answer</h1>
+		<h2>March 2022</h2>
+		<h3>A website to visualize objective truth, your own perspective, and a computer algorithm’s calculated truth as Cartesian paths of reality.</h3>
+	</div>
+
+	<div class = "scroll">
+		<h2>ABOUT: </h2>
+		<p>The visualization works by providing the program the three inputs of gesture, sound, and symbol. The moment the symbol is clicked, four separate lines are drawn. One that represents objective truth, symbolic input, gesture input, and sound input. Objective reality moves in one of the x, -x, y, -y directions. If the symbol input matches this, the path representing symbol moves with the exact same vector. If not, it moves in the opposite direction. </p>
+		<br>
+		<p>The same directional logic applies to the gesture and sound paths. However because these two involve an additional layer of error due to needing translation by an algorithm, the direction is multiplied by the confidence level of the ML classifier drawing out curved lines (the less confident, the more it moves away from absolute XY). Together these four paths map out the different realities of each input passed through a computer. </p>
+		<br>
+
+		<h2>TECHNICAL INFO: </h2>
+		<p>The interpretation of sound and gesture input relies on two ML models from ml5.js. For gesture, the user must first initialize the classification themselves by training a model on their gestures for each number from 1-5 before the visualization can begin. I used the image classification model MobileNet. To classify speech, I used the SpeechCommands18w model to respond to audio that output a label of “one”, “two”, “three”, “four”, or “five.” The error values of both of these models in interpreting user video and audio were used as the noise value for the paths which were drawn using p5.js. 		</p>
+		<br>
+
+		<h2>CONCEPT: </h2>
+		<p>What is the relationship between objective truth, your reality, and a computer algorithm’s reality? How do we figure out who’s wrong when there’s a disagreement between these things? When I hold up four fingers and the machine learning model I trained says I’m holding up a five, what does anything even mean anymore? Is the computer wrong? Are you wrong? Is the computer’s interpretation of you wrong? Is your understanding of gesture representations of numbers wrong? Wait a minute does objective reality even exist?</p>
+		<br>
+		<p>A number can be expressed as a gesture (four fingers), a sound (“four”) and the symbol (4). Everybody needs to understand that these all mean the same value 4 in order for a simple math problem to not make everybody question their existence. Isn’t it kind of crazy how much of a common understanding we need for communication to happen at all? </p>
+		<br>
+	<br><br>
+
+	</div>
+
+</div>
+</body>
+<script type="text/javascript" src="../base.js"></script>

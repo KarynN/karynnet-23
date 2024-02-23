@@ -10,21 +10,42 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 
 <body>
 	<p><img src="https://www.dropbox.com/s/hdkygzlfjazzfe1/DSCF1659.jpg?raw=1" alt=""></p>
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.youtube.com/watch_popup?v=NsGzhlbpIjY&vq=1080"></iframe>
 
+
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="Enclosing Nothing-txt.html" 
-  	target="popup" 
-  	onclick="window.open('Enclosing Nothing-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+
+
+
+	<div class = "title">
+		<h1 id="enclosing-nothing">Enclosing Nothing</h1>
+		<h2>December 2021</h2>
+		<h3>An interactive installation of translucent sheets, 4 lights, and 8 box fans that respond to your presence in vs. outside of the enclosure. </h3>
+	</div>
+
+	<div class = "scroll">
+		<h2>TECHNICAL INFO: </h2>
+			<p>This was a system of four theater lights and 8 box fans on a lighting dimmer that was all daisy-chained on one DMX line. I made a custom program in Touchdesigner to detect when a body enters the space using a Kinect and then send DMX signal over ethernet via ArtNET to make the lights flash slowly and to generate a random current by turning different fans on and off. </p>
+			<br>
+		<h2>CONCEPT: </h2>
+			<p>A stream of information embodied by the movement of the fabric becomes segmented into instances by the bright strobe and held in time by the imprint of the light on your retina. The feeling of wind is continuous but the image is staggered.</p>
+			<br>
+			<p>What is the temporality of the body vs. the brain? How much of our sensations are lost before being synthesized by the mind? What we understand in the moment that something makes sense is probably only a sliver of all of the forces continuously at play in the dark. </p>
+			<br>
+	<br><br>
+		</div>
+
+
+
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

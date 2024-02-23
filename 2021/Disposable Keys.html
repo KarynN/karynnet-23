@@ -10,20 +10,42 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+
 </head>
 
 <body>
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.youtube.com/watch_popup?v=UVCfBcDbYGo&vq=1080"></iframe>
+	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.youtube.com/watch_popup?v=JuJ3oG-Dago&vq=1080"></iframe>
 
+
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="Disposable Keys-txt.html" 
-  	target="popup" 
-  	onclick="window.open('Disposable Keys-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+
+
+
+	<div class = "title">
+		<h1 id="disposable-keys">Disposable Keys</h1>
+		<h2>2021</h2>
+		<h3>A live interactive audiovisual program that drops 3D models of piano keys in a virtual space when the piano is played.</h3>
+	</div>
+
+	<div class = "scroll">
+		<h2>ABOUT: </h2>
+		<p>A live interactive audiovisual program that drops 3D models of piano keys in a virtual space when the piano is played.</p>
+		<br>
+		<p>Sound Droplets - An iteration of the dropping keys was made using extruded audio waveforms as input instead of MIDI keys.</p>
+		<br>
+		<h2>TECHNICAL INFO: </h2>
+		<p>3D audioreactive visualization is a custom program made in Touchdesigner that takes realtime MIDI input to generate the 3D geometries. 
+		</p>
+	<br><br>
+	</div>
+
+
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

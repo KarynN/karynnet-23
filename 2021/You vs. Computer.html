@@ -10,6 +10,8 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+
 </head>
 
 <body>
@@ -18,15 +20,24 @@
 	<p><img src="https://www.dropbox.com/s/sqt4ghjt4i0lriz/IMG_6444.jpeg?raw=1" alt=""></p>
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.youtube.com/watch_popup?v=SsriQDCey1Q&vq=1080"></iframe>
 	
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="You vs. Computer-txt.html" 
-  	target="popup" 
-  	onclick="window.open('You vs. Computer-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+	<div class = "title">
+		<h1 id="you-vs-computer">You vs. Computer</h1>
+		<h2>August 2021</h2>
+		<h3>An interactive projection installation in which the more you move around in the room, the more complicated a generated geometry becomes, giving you the power to crash your computer with your physical strength.</h3>	
+	</div>
+
+	<div class = "scroll">
+		<h2>TECHNICAL INFO:</h2>
+		<p>The movement of the person in the room is monitored by a Kinect. A custom program made in Touchdesigner monitors the average movement and controls the parameters of the geometry live. </p>
+		<br>
+	<br><br>
+	</div>
+
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

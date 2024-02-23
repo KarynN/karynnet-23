@@ -10,10 +10,12 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 
 <body>
-
+	<br><br><br><br><br><br>
+	<iframe style = "max-width: 100vw; width: 100vw; height: 700px; position: relative; border-width: 0px;" src = "https://www.youtube.com/watch_popup?v=axP3uMk5Gl0&vq=1080"></iframe>
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.dropbox.com/s/0aszfo5wotci06o/G.mp4?raw=1"></iframe>
 	
 	<p><img src="https://www.dropbox.com/s/ds75r45sla6as3b/circle.C.jpg?raw=1" alt="C"></p>
@@ -25,18 +27,27 @@
 	<p><img src="https://www.dropbox.com/s/iwjkbo3ye9b41ui/circle.B.jpg?raw=1" alt="B"></p>
 	<p><img src="https://www.dropbox.com/s/ca8d2w42opa9rcr/circle.C2.jpg?raw=1" alt="C"></p>
 
-	<iframe style = "max-width: 100vw; width: 100vw; height: 700px; position: relative; border-width: 0px;" src = "https://www.youtube.com/watch_popup?v=axP3uMk5Gl0&vq=1080"></iframe>
-	
-
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="wobblymp4-txt.html" 
-  	target="popup" 
-  	onclick="window.open('wobblymp4-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+	<div class = "title">
+		<h1 id="wobblymp4">wobbly.mp4</h1>
+		<h2>March 2022</h2>
+		<h3>An experiment to understand the fundamental characteristics of VQGANs by providing bare minimum input data.</h3>
+	</div>
+
+	<div class = "scroll">
+		<h2>TECHNICAL INFO: </h2>
+			<p>A VQGAN is a neural network architecture that can be used to generate new images from a batch of existing images. It can then sequence these new images to generate a video based on what it understands of the characteristics of the original images. I forced the neural network to produce a video from exactly one image - the bare minimum input data required in order to try to see the fundamental characteristics of this algorithm. The image I used was a simple circle. The video generated was a noisy, wobbly circle. I repeated the process a total of 8 different sized circles.</p>
+			<br>
+			<p>Then, I created a program to compare every frame of the generated video with the original video and calculate a single value of the difference in pixel values. I assigned one of the notes C, D, E, F G, A, B, C to each of the 8 circles, and added an oscillator to the program that generates these notes, but distorts them depending on the difference value. The program then, randomly selects two of these circles to perform at a time corresponding to the right and left channels of audio, and together generating a conversation of wobbly circles.			</p>
+			<br>
+	<br><br>
+	</div>
+
+
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

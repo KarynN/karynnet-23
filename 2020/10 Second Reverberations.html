@@ -10,23 +10,44 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+
 </head>
 
 <body>
+	<br><br><br><br><br>
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.youtube.com/watch_popup?v=t0cbVOA6ByM&vq=1080"></iframe>
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.dropbox.com/s/o477xj9obznyitz/notes%20demo.mp4?raw=1"></iframe>
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.dropbox.com/s/l5ei763mty4ebui/c%20demo.mp4?raw=1"></iframe>
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.dropbox.com/s/340ehi76g8vydgj/chords%20demo.mp4?raw=1"></iframe>
-
+	
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="10 Second Reverberations-txt.html" 
-  	target="popup" 
-  	onclick="window.open('10 Second Reverberations-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+
+	<div class = "title">
+		<h1 id="10-second-reverberations">10 second reverberations</h1>
+		<h2>May 2020</h2>
+		<h3>Interactive audiovisual software and performance.</h3>
+	</div>
+
+	<div class = "scroll">
+		<h2>ABOUT: </h2>
+		<p>A sound exists not only when it is heard, but in its role as one small part of a whole, defining the trajectory of a phrase and passing momentum onwards. With the speed and complexity of a typical song, it is difficult to appreciate the impact of every single note.  The motivation behind the audio visualization was to make the reverberations of every sound a bit more tangible.</p>
+		<br>
+		<p>Every key on the piano is tied to a certain medium like a ripped up piece of paper, a sticker, or a piece of tissue and by pressing on a key the image is placed randomly on the screen. Each image exists for 10 seconds and then disappears, creating an evolving collage of the last 10 seconds of the song. The arbitrary lifespan assigned to the images enables every sound and its impact to be visible.</p>
+		<br>
+		<p>Every note (C D E F G A B C, sharp/flat) has its own color/type. For example, all C keys are tied to green images. However, each C key triggers a slightly different green image - green origami, green paper, or a ripped photo of trees.  The same logic is applied to all notes - A is purple, G sharp/A flat is sheet music and receipts, giving every key signature/scale its own color scheme.</p>
+		<br>
+
+		<h2>TECHNICAL INFO: </h2>
+		<p>Made in Isadora using MIDI output from a piano.</p>
+		<br>
+		<br><br>
+	</div>
+
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>

@@ -10,6 +10,8 @@
   	<link rel="image_src" href="../folder.png"/>
 	<meta property="og:image" content = "../folder.png" />
 	<link rel="icon" href="../folder.png">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+
 </head>
 
 <body>
@@ -20,15 +22,30 @@
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.dropbox.com/s/89rhutzh60q7qq5/1.%20Full%20Audio.mp4?raw=1"></iframe>		
 	<iframe style = "max-width: 100vw; width: 100vw; height: 100vh; position: relative; border-width: 0px;" src = "https://www.dropbox.com/scl/fi/w2qft3rg04zk388fdnr9e/IMG_8361-2.mp4?rlkey=82v98tvho7aphw657pvx0qpun&raw=1"></iframe>
 
+
+	<div class = "mask"></div>
 	<div class = "footer">
 	<a class = "back" href = "../root.html">back</a>
-	<a class = "text" href="Conversation with Anna-txt.html" 
-  	target="popup" 
-  	onclick="window.open('Conversation with Anna-txt.html','popup','width=600,height=500, left=' + popwidth + ',top=' + popheight); return false;">
-  	text</a>
+	<a class = "text">text</a>
+
+
+	<div class = "title">
+		<h1 id="conversation-with-anna">Conversation with Anna</h1>
+		<h2>October 2021</h2>
+		<h3>A conversation with my friend Anna translated into machine sounds through a series of transcodings.</h3>
+	</div>
+
+	<div class = "scroll">
+		<h2>ABOUT: </h2>
+		<p>I had an 8 minute conversation catching up with my friend Anna. Through a process of transcodings, this is translated into 8 minutes of machine sounds. The original audio, and the resultant translation are combined to produce a two channel audio piece.</p>
+		<br>
+		<h2>TECHNICAL INFO: </h2>
+		<p>First, I used the two separate channels of audio from the conversation (my voice and Anna’s voice) to generate a visualization which encoded the trajectory of the conversation as a path based on the volumes of our voices that each controlled one axis on a Cartesian grid. This was then, materialized into a physical form by a 3D printer (used as a plotter) that followed this trajectory with a pen drawing the path on a piece of paper. This process produced sound as a byproduct which was timed to be perfectly 8 minutes as was the duration of the original conversation. The audio input (human conversation) and the resultant output (machine shrieks and beeps) are put side by side along the same timeline.</p>
+		<br>
+	<br><br>
+	</div>
+
+
 </div>
 </body>
-<script type="text/javascript">
-	popwidth = (screen.width - 600)*0.5
-	popheight = (screen.width - 500)*0.2
-</script>
+<script type="text/javascript" src="../base.js"></script>
