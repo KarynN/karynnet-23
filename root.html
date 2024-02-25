@@ -6,6 +6,7 @@
 	<title>KARYN NAKAMURA</title>
 	<meta name="viewport" content="initial-scale=1" /> 
   <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Overpass' rel='stylesheet' type='text/css'>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Cantarell&family=Exo+2:wght@100;200;300&family=IBM+Plex+Sans+KR:wght@200;300;400&family=Jura:wght@300&family=Quantico&family=Source+Code+Pro:wght@200;300;400&family=Space+Grotesk&family=Titillium+Web:wght@200;300&display=swap" rel="stylesheet">	<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'></script>
@@ -51,9 +52,15 @@ body {
 .list{
   font-size: 20px;
   position: relative;
-  padding-right: 50px;
   padding-top: 10px;
 }
+
+.everything-list{
+  padding-left: 0px;
+}
+
+
+
 
 ul {
   font-size: 16px;
@@ -61,34 +68,26 @@ ul {
   font-weight: 100; 
   letter-spacing: 10px;
   list-style-type: none;
-  padding-left: 10px;
+  padding-left: 15px;
 }
 
-.jura {
-  font-family: Jura; 
-  font-size: 16px; 
-  line-height: 1.5em;
-}
-
-.aldrich{
-  font-size: 18px;
-  font-family: Aldrich; 
-  font-weight: 100; 
-}
 
 .works{
-  padding-top: 30px;
   padding-bottom: 30px;
 }
+
 .work{
-  list-style-type: square;
+  list-style-type: none;
   font-family: Jura; 
   font-size: 16px; 
   font-weight: 100;
   line-height: 1.7em;
   letter-spacing: 1px;
-  top: 100px;
+  top: 10px;
+  padding-left: 10px;
 }
+
+
 
 a {
   color: black;
@@ -104,14 +103,13 @@ a:hover{
   line-height: 2em;
 }
 
-.desktopimg {
-  height: 100vh;
-  width: 100vw;
-  opacity: 0%;
-  position: fixed;
-  top: 0;
+.highlight {
+  font-size: 16px;
+  font-family: Aldrich; 
+  font-weight: 100; 
+  letter-spacing: 9px;
+  line-height: 2em;
 }
-
 
 #tv{
   margin: auto;
@@ -134,6 +132,7 @@ a:hover{
   height: 300px;
   margin: auto;
   position: absolute;
+  margin-top: 10px;
   
 }
 
@@ -142,6 +141,8 @@ a:hover{
   height: 200px;
   margin: auto;
   background-color: black;
+  background-image: url("https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif");
+
 }
 
 
@@ -149,11 +150,13 @@ a:hover{
   background-image: url("https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif");
   border: 0;
   height: 180px;
+  width: 220px;
   max-width: 225px;
   top: 41px;
   left: 87px;
   position: absolute;
   overflow-y: hidden;
+  margin-top: 10px;
 }
 
 
@@ -163,30 +166,62 @@ a:hover{
   max-width: 225px;
   min-height: 180px;
   margin: auto;
+  background-image: url("https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif");
+
 }
 
 
 #description{
-display: none;
-color: red;
+  color: cyan;
+  filter: drop-shadow(0px 0px 5px greenyellow);
+  margin-top: 10px;
+  padding-top: 10px;
 
 }
 
 #textbox{
   text-align: left;
-  font-family: Quantico;
-  font-weight: 400;
+  font-family: Aldrich;
+  font-weight: 100;
   letter-spacing: 2px;
   font-size: 12px;
   position: absolute;
-
   left:50%;
-  top:400px;
-  transform: translate(-50%, -50%);
+  top:330px;
+  transform: translate(-50%, 0%);
   width: 80%;
   max-width: 500px;
   padding-right: 10px;
+  text-align: justify;
+  margin-top: 10px;
+  padding-top: 10px;
 }
+
+.button {
+			min-width: 130px;
+      line-height: 1.5em;
+     	padding: 4px 2px;
+			cursor: pointer;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 49%;
+      top: 310px;
+			text-align: center;
+			background: #fff;
+			font-size: 13px;
+			border: 1px solid #e0e0e0;
+			text-decoration: none;
+			color: black;
+      font-family: Aldrich;
+    	}
+
+.button:hover {
+			background: #fff;
+			color: cyan;
+			border: 2px solid cyan;
+      filter: drop-shadow(0px 0px 5px chartreuse);
+      
+		}
 
 
 @media screen and (max-width: 766px) {
@@ -220,11 +255,19 @@ ul ul {
 
 ul li{
   position: relative;
-  left: -5px;
+  left: 0px;
 }
 
 #description{
   display: none;
+}
+
+#sort {
+  display: none;
+}
+
+.highlight {
+
 }
 
 }
@@ -240,112 +283,235 @@ ul li{
       </div>
       <img class = "tvpng" src = "tv.png" >
       <div id = "description">
-        <div id = "textbox">building projection to an abandoned Frank Gehry pub inside MIT’s CS building filled with 60 screens and transformed into the stage of a 3 month video performance, to a live sculpture of disassembled music hardware
-        </div>
+        <div id = "textbox"></div>
       </div>
+      <button id="sort" class="button">PROGRAM: 1</button>
     </div>
     <div id = "text">
-      <img class = "desktopimg" src = "https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif" >
-      
       <div class="title">Index of <br><span class="name">/KARYN NAKAMURA/ </span></div>
-
       <div class="list">
-        <ul>
         <ul>
           <li><a class = "info" href = "info.html">Info/</a></li>
           <br>
-          <li>INSTALLATION/</li>
-          <ul class = "works">
-            <li><a class = "work" description = "https://www.dropbox.com/scl/fi/xzl2fovq1czv2tijmr9f2/_DSF6390-Edit.jpg?rlkey=f56tr0knoruh0rly1lj4uxtl7&raw=1" target = "_self" href = "2023/noise pile.html">noise pile</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/ayqlzbks5b7zi4b/IMG_2376.jpeg?raw=1" target = "_self" href = "2023/BREAK MY BODY LIBERATE MY SOUL.html">BREAK MY BODY LIBERATE MY SOUL</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/k897huhbmegqx8g/1.%20DSC00555.jpg?raw=1" target = "_self" href = "2022/116 X 31.html">116 X 31</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/scl/fi/asjha712cryvwelrvlvm2/digging-img2.jpg?rlkey=wwkxbrs7wdtl00nl6sg236cd5&raw=1" target = "_self" href = "2023/Digging.html">Digging</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/hdkygzlfjazzfe1/1.%20DSCF1659.jpg?raw=1" target = "_self" href = "2021/Enclosing Nothing.html">Enclosing Nothing</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/zqh6gne557tfr2g/IMG_2544%20%281%29.jpeg?raw=1" target = "_self" href = "2021/Continuous Overflow.html">Continuous Overflow</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/zvk9g2d0v3vl334/1.%20cover.png?raw=1" target = "_self" href = "2021/Gradient on blowing sheet.html">Gradient on blowing sheet</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/ho0g0hbakmkvww9/8.%20mappmontreal.jpeg?raw=1" target = "_self" href = "2021/Sound Paths.html">Sound Paths</a></li>
-          </ul>
-          <li>PERFORMANCE/</li>
-          <ul class = "works">
-            <li><a class = "work" description = "https://www.dropbox.com/scl/fi/4y4flj3aaeq4sroo7qr45/IMG_4270.jpeg?rlkey=smzxf0yn8d966kbon72dec08v&raw=1" target = "_self" href = "2023/Organizing the AV tech closet as media.html">Organizing the AV tech closet as media</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/xld9p69onvrmvgh/Screen%20Shot%202023-06-12%20at%2015.50.43.png?raw=1" target = "_self" href = "2023/Normal Thesis Presentation.html">Normal Thesis Presentation</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/3g3yux6yuwikb1t/img2%20copy.jpg?raw=1" target = "_self" href = "2022/ENTERING 26.html">ENTERING 26</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/chz36x7jjbdzrqx/Screen%20Shot%202023-01-09%20at%2016.54.56.png?raw=1" target = "_self" href = "2022/ARE YOU SOFT.html">ARE YOU SOFT?</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/ivafb324pbpfhv0/1.%20speakevil.png?raw=1" target = "_self" href = "2021/Public Intervention Projections.html">Public Intervention Projections</a></li>
-          </ul>
-          <li>VIDEO/</li>
-          <ul class = "works">
-            <li><a class = "work" description = "https://www.dropbox.com/scl/fi/4m1wcmpbmlb55yevebvh4/Screen-Shot-2023-10-07-at-23.24.15.png?rlkey=8q9e3nmo4kabjme0pi39uxfr7&&raw=1" target = "_self" href = "2023/MIT REGRESSIONS Trailer.html">MIT: REGRESSIONS Trailer</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/scl/fi/cqz7ct8m34vs569xxcef5/still1.png?rlkey=278ceqni01dsnjnqjo2gkc2j3&raw=1" target = "_self" href = "2023/This program cannot be paused (Shibuya TV).html">This program cannot be paused (Shibuya TV)</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/1uf58jms7fxt1gm/IMG_0434.jpeg?raw=1" target = "_self" href = "2022/140 Year Multi-Generational Wet & Hot Man-Sized Effort.html">140 Year Multi-Generational Wet & Hot Man-Sized Effort</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/zn8q55wy4pfokdj/cover.png?raw=1" target = "_self" href = "2022/wobblymp4.html">wobbly.mp4</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/4k45ta6y6w6zgkp/IMG_8469.jpeg?raw=1" target = "_self" href = "2021/Conversation with Anna.html">Conversation with Anna</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/o8xih0ymtiw7bnb/1.%20Screen%20Shot%202021-03-13%20at%209.41.47.png?raw=1" target = "_self" href = "2021/Disposable Keys.html">Disposable Keys</a></li>
-          </ul>
-
-          <li>WEB + VISUALIZATION/</li>
-          <ul class = "works">
-            <li><a class = "work" description = "https://www.dropbox.com/s/8fa5xxt5whhknk8/VL2R.png?raw=1" target = "_self" href = "2022/Gray as in weird gradient.html">Gray as in weird gradient</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/wdiyxycp3firkxq/2.%201%2C348%2C345km2.png?raw=1" target = "_self" href = "2021/DIY World Map for Cartographic Nihilists.html">DIY World Map for Cartographic Nihilists</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/bmcrnqwxp3k1eg1/slide1.jpg?raw=1" target = "_self" href = "2022/2+2=answer.html">2+2 = Answer</a></li>
-
-            <li><a class = "work" description = "https://www.dropbox.com/s/08ym9qmt35j7g2q/5.%20monopo%20NYC.png?raw=1" target = "_self" href = "2021/monopo NYC Website.html">monopo NYC Website</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/x7384y3tnjqyeo6/3.%20VisualizeNYC.png?raw=1" target = "_self" href = "2021/Data Visualizations.html">Data Visualizations</a></li>
-
-            <li><a class = "work" description = "https://www.dropbox.com/s/op3adqau0z4vwf8/IMG_6444%20%281%29.jpeg?raw=1" target = "_self" href = "2021/You vs. Computer.html">You vs. Computer</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/45mzqzra8cq1klo/1.%20Hybrid%20Moment.png?raw=1" target = "_self" href = "2021/Interactive Projection Installations.html">Interactive Projection Installations</a></li>
-
-        
-            <li><a class = "work" description = "https://www.dropbox.com/scl/fi/jj4wak4urzfhzaan7inv0/Screen-Shot-2023-02-10-at-0.09.56.png?rlkey=2mwqcwzdo2fvgy3qljmqem8dl&raw=1" target = "_self" href = "2022/Web (barcode).html">Web (barcode)</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/umd91vwc81g8j03/16.%20infiniteweb.png?raw=1" target = "_self" href = "2021/Infinite Magazine Website.html.html">Infinite Magazine Website</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/kmiygszxr8pxww9/13.%20Automatic%20Rain.png?raw=1" target = "_self" href = "2021/Web Experiments.html">Web Experiments</a></li>
-
-            <li><a class = "work" description = "https://www.dropbox.com/s/lzk9ry9b2h1ifep/Screen%20Shot%202023-01-15%20at%2023.50.26.png?raw=1" target = "_self" href = "2020/10 Second Reverberations.html">10 Second Reverberations</a></li>
-
-          </ul>
-
-
-
-
-
-          <li>HARDWARE/</li>   
-          <ul class = "works">
-            <li><a class = "work" description = "https://www.dropbox.com/scl/fi/wp20kleiat2ogj61xj16p/183C8757-A0C7-4D69-9450-1A8BF5BDA0FB.jpg?rlkey=hx3fxsutgz3x1h6xczids5h2e&raw=1" target = "_self" href = "2023/Projector (NEC MultiSync VT580).html">Projector (NEC MultiSync VT580)</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/qrwa8tynjmluxet/IMG_4411.jpeg?raw=1" target = "_self" href = "2023/Thesis Cable.html">Thesis Cable</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/jz3itlg8gwns1us/2.%20Screen%20Shot%202023-01-14%20at%2023.17.53.png?raw=1" target = "_self" href = "2022/THIS LIFE IS ETERNAL.html">THIS LIFE IS ETERNAL</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/51xfh4d4czfyug7/4.%20IMG_6456.jpeg?raw=1" target = "_self" href = "2022/I’m looking for the most loved video cable.html">I'm looking for the most loved video cable. Do you guys carry that here?</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/5nf3hq26z604api/1851D8B4-91C2-49C8-A5EF-E3BBA1C4F7F4.jpg?raw=1" target = "_self" href = "2022/My Canon TS 6030 sucks.html">My Canon TS 6030 sucks!</a></li>
-            <li><a class = "work" description = "https://www.dropbox.com/s/wfrxz0x1c2gsc80/8.%20coverimg.png?raw=1" target = "_self" href = "2022/Bleed.html">Bleed</a></li>
-          </ul>
-  
-        </ul>
+          <ul id="cat1" class = "everything-list"></ul>
+          <ul id="cat2" class = "everything-list"></ul>
+          <ul id="cat3" class = "everything-list"></ul>
         </ul>
         <br><br>
       </div>
     </div>
-    </div>
+
 
 <script type="text/javascript">
-let thumbnail = ""
+
+d3.csv("spread.csv").then(function(data) {
+    // Group data by category
+    var nest1 = d3.group(data, d => d.format);
+    var nest2 = d3.group(data, d => d.concept);
+    var nest3 = d3.group(data, d => d.year);
+
+    // Select the description list
+    var cat1list = d3.select("#cat1");
+    var cat2list = d3.select("#cat2");
+    var cat3list = d3.select("#cat3");
 
 
-d3.selectAll(".work")
 
-  .on('mouseenter', function() { 
-      thumbnail = d3.select(this).attr("description")
-      imgurltext = "url('" + thumbnail + "')"
-      d3.select(".thumbnail").attr("src", thumbnail).style("opacity", "100%")
-  })
+/*
 
-  .on('mouseout', function() { 
-    d3.select(".thumbnail").attr("src", "https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif")
-  })
+    // Add categories as list items
+    var cat1cats = cat1list.selectAll("ul")
+        .data(nest1)
+        .enter()
+        .append("li")
+        .html(function(d) {
+                return "<li>" + d[0].toUpperCase() + "/</li><br>";
+            })
+        .attr("class", "works");
 
+    // Add items under each category
+    cat1cats.each(function(d) {
+        d3.select(this)
+            .selectAll("ul")
+            .data(d[1])
+            .enter()
+            .append("li")
+            .attr("class", "work")
+            .style("opacity", 1) 
+            .html(function(item) {
+              return "<a href='" + item.year + "/" + item.pagelinktitle + ".html'>" + item.title + "</a>";
+            })
+            .selectAll("a")
+            .on("mouseover", function() {
+              var data = d3.select(this.parentNode).datum(); // Retrieve the original dataset associated with the current list item
+              var description = data.description;
+              d3.select(".thumbnail").attr("src", data.imglink).style("opacity", "100%")
+              d3.select("#description").html('<div id = "textbox">' + data.description + '</div>').transition().duration(500).style("opacity", 1)
+            })
+            .on("mouseleave", function(data) {
+              d3.select(".thumbnail").attr("src", "https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif")
+              d3.select(".textbox").style("opacity","0")
+              d3.select("#description").html('<div id = "textbox">' + '</div>').style("opacity", 0) 
+            })
+            .transition()
+            .duration(1500)
+            .style("opacity", 1);
+          })
+*/
+
+
+
+function createCategory(catList, nestedData) {
+    catList.each(function(d) {
+        d3.select(this)
+            .selectAll("ul")
+            .data(nestedData)
+            .enter()
+            .append("li")
+            .html(function(d) {
+                return "<li>" + d[0].toUpperCase() + "/</li><br>";
+            })
+            .attr("class", "works")
+            .each(function(d) {
+                d3.select(this)
+                    .selectAll("ul")
+                    .data(d[1])
+                    .enter()
+                    .append("li")
+                    .attr("class", "work")
+                    .style("opacity", 1)
+                    .html(function(item) {
+                        return "<a href='" + item.year + "/" + item.pagelinktitle + ".html'>" + item.title + "</a>";
+                    })
+                    .selectAll("a")
+                    .on("mouseover", function() {
+                        var data = d3.select(this.parentNode).datum(); // Retrieve the original dataset associated with the current list item
+                        var description = data.description;
+                        d3.select(".thumbnail").attr("src", data.imglink).style("opacity", "100%");
+                        d3.select("#description").html('<div id = "textbox">' + data.description + '</div>').transition().duration(500).style("opacity", 1);
+                    })
+                    .on("mouseleave", function(data) {
+                        d3.select(".thumbnail").attr("src", "https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif");
+                        d3.select(".textbox").style("opacity", "0");
+                        d3.select("#description").html('<div id = "textbox">' + '</div>').style("opacity", 0);
+                    })
+                    .transition()
+                    .duration(1500)
+                    .style("opacity", 1);
+            });
+    });
+}
+  createCategory(cat1list, nest1);
+
+  var mode = 0
+  d3.select("#sort").on("click", function() {
+
+    if (mode == 0){
+      mode = 1
+      cat1list.selectAll("li, li *")
+        .transition()
+        .duration(500)
+        .style("opacity", 0)
+        .remove();
+      createCategory(cat2list, nest2);
+
+      d3.select(this).text("PROGRAM: 2")
+    }
+    else if (mode ==1){
+      mode = 2
+
+      cat2list.selectAll("li, li *")
+        .transition()
+        .duration(500)
+        .style("opacity", 0)
+        .remove();
+      createCategory(cat3list, nest3);
+
+      d3.select(this).text("PROGRAM: 3")
+    }
+    else if (mode == 2){
+      mode = 0
+      cat3list.selectAll("li, li *")
+        .transition()
+        .duration(500)
+        .style("opacity", 0)
+        .remove();
+      createCategory(cat1list, nest1);
+      d3.select(this).text("PROGRAM: 1")
+      /*
+      cat3list.selectAll("li, li *")
+        .transition()
+        .duration(500)
+        .style("opacity", 0)
+        .remove();
+      mode = 3
+
+      d3.select(this).text("NIHILIST MODE")
+      */
+    }
+    /*
+    else if (mode == 3){
+      mode = 0
+
+      createCategory(cat1list, nest1);
+      d3.select(this).text("PROGRAM: 1")
+
+    }*/
+    });
+
+  function highlightRandomElement() {
+      var listItems = d3.selectAll(".work");
+      listItems.classed("highlight", false);
+      var randomIndex = Math.floor(Math.random() * listItems.size());
+      var randomListItem = listItems.nodes()[randomIndex];
+      d3.select(randomListItem).classed("highlight", true);
+      data = d3.select(randomListItem).datum(); // Retrieve the original dataset associated with the current list item
+      d3.select(".thumbnail").attr("src", data.imglink).style("opacity", "100%")
+  }
+
+  var currentIndex = 0;
+
+  function highlightNextElement() {
+      var listItems = d3.selectAll(".work");
+      listItems.classed("highlight", false);
+      var listItem = listItems.nodes()[currentIndex];
+      d3.select(listItem).classed("highlight", true);
+      var data = d3.select(listItem).datum(); 
+      d3.select(".thumbnail").attr("src", data.imglink).style("opacity", "100%");
+      currentIndex = (currentIndex + 1) % listItems.size();
+  }
+
+  var highlightInterval //= setInterval(highlightRandomElement, 4000);
+  var mouseMoveTimeout;
+
+  function handleMouseMove(event) {
+    clearTimeout(mouseMoveTimeout);
+   // d3.select(".thumbnail").attr("src", "https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif")
+    d3.selectAll(".work").classed("highlight", false);
+    var isMouseOverLink = event.target.closest("li.work a");
+    if (isMouseOverLink) {
+        clearInterval(highlightInterval);
+        return; // Exit the function early
+    }
+    clearInterval(highlightInterval);
+    mouseMoveTimeout = setTimeout(function() {
+      d3.select(".thumbnail").attr("src", "https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif")
+      highlightInterval = setInterval(highlightNextElement, 2500);
+    }, 2000);
+}
+
+document.body.addEventListener("mousemove", handleMouseMove);
+
+});
 
 
 d3.select(".info").on("click", function() { 
     window.open("info-txt.html", 'text', params);
 })
+
+function getRandomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
 
 </script>
