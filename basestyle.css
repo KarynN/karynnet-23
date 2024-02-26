@@ -136,6 +136,7 @@ h1{
 }
 
 h2{
+	color: red;
 	font-family: Aldrich; 
 	font-weight: 200; 
 	font-size: 12px;
@@ -202,10 +203,10 @@ p, iframe {
 	}	
 
 	.title{
-		filter: drop-shadow(0px 0px 4px black);
+		filter: drop-shadow(0px 0px 3px black);
 	}
 
 	.footer{
-		filter: drop-shadow(0px 0px 4px black);
+		filter: drop-shadow(0px 0px 3px black);
 	}
 }
