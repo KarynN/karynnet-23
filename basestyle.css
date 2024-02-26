@@ -42,7 +42,7 @@ img {
 	margin-left: 10px;
 }
 
-.text{
+.text1{
 	color: red;
 	font-family: Quantico;
 	letter-spacing: 6px;
@@ -52,15 +52,38 @@ img {
 	width: 100vw;
 	transform: translate(50%, 0%);
 	cursor: pointer;
-
-	
 }
+
+
+.button {
+	min-width: 70px;
+	line-height: 1.4em;
+ 	padding: 4px 4px;
+	cursor: pointer;
+	position: relative;
+	text-align: center;
+	font-size: 13px;
+	border: 1px solid white;
+	background-color: rgba(255, 255, 255, 0.3);
+	text-decoration: none;
+	color: white;
+	font-family: Aldrich;
+}
+
+.button:hover {
+	color: red;
+	border: 0.2px solid cyan;
+	background-color: rgba(255, 255, 255, 0.7);
+
+	filter: drop-shadow(0px 0px 6px rgb(177, 255, 250));
+
+}
+
 
 .title{
 	position: fixed;
 	top: -5px;
 	left: 10px;
-
 	color: red;
 	filter: drop-shadow(0px 0px 0px black);
 }
@@ -203,10 +226,10 @@ p, iframe {
 	}	
 
 	.title{
-		filter: drop-shadow(0px 0px 3px black);
+		filter: drop-shadow(0px 0px 0px black);
 	}
 
 	.footer{
-		filter: drop-shadow(0px 0px 4px black);
+		filter: drop-shadow(0px 0px 0px black);
 	}
 }
