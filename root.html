@@ -202,10 +202,7 @@ a:hover{
       line-height: 1.5em;
      	padding: 4px 2px;
 			cursor: pointer;
-      position: absolute;
-      transform: translate(-50%, -50%);
-      left: 49%;
-      top: 310px;
+      position: relative;
 			text-align: center;
 			background: #fff;
 			font-size: 13px;
@@ -213,6 +210,7 @@ a:hover{
 			text-decoration: none;
 			color: black;
       font-family: Aldrich;
+      left: 15px;
     	}
 
 .button:hover {
@@ -285,11 +283,12 @@ ul li{
       <div id = "description">
         <div id = "textbox"></div>
       </div>
-      <button id="sort" class="button">PROGRAM: 1</button>
     </div>
     <div id = "text">
       <div class="title">Index of <br><span class="name">/KARYN NAKAMURA/ </span></div>
       <div class="list">
+        <button id="sort" class="button">PROGRAM: 1</button>
+
         <ul>
           <li><a class = "info" href = "info.html">Info/</a></li>
           <br>
@@ -317,48 +316,6 @@ d3.csv("spread.csv").then(function(data) {
 
 
 
-/*
-
-    // Add categories as list items
-    var cat1cats = cat1list.selectAll("ul")
-        .data(nest1)
-        .enter()
-        .append("li")
-        .html(function(d) {
-                return "<li>" + d[0].toUpperCase() + "/</li><br>";
-            })
-        .attr("class", "works");
-
-    // Add items under each category
-    cat1cats.each(function(d) {
-        d3.select(this)
-            .selectAll("ul")
-            .data(d[1])
-            .enter()
-            .append("li")
-            .attr("class", "work")
-            .style("opacity", 1) 
-            .html(function(item) {
-              return "<a href='" + item.year + "/" + item.pagelinktitle + ".html'>" + item.title + "</a>";
-            })
-            .selectAll("a")
-            .on("mouseover", function() {
-              var data = d3.select(this.parentNode).datum(); // Retrieve the original dataset associated with the current list item
-              var description = data.description;
-              d3.select(".thumbnail").attr("src", data.imglink).style("opacity", "100%")
-              d3.select("#description").html('<div id = "textbox">' + data.description + '</div>').transition().duration(500).style("opacity", 1)
-            })
-            .on("mouseleave", function(data) {
-              d3.select(".thumbnail").attr("src", "https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif")
-              d3.select(".textbox").style("opacity","0")
-              d3.select("#description").html('<div id = "textbox">' + '</div>').style("opacity", 0) 
-            })
-            .transition()
-            .duration(1500)
-            .style("opacity", 1);
-          })
-*/
-
 
 
 function createCategory(catList, nestedData) {
@@ -370,6 +327,48 @@ function createCategory(catList, nestedData) {
             .append("li")
             .html(function(d) {
                 return "<li>" + d[0].toUpperCase() + "/</li><br>";
+            })
+            .attr("class", "works")
+            .each(function(d) {
+                d3.select(this)
+                    .selectAll("ul")
+                    .data(d[1])
+                    .enter()
+                    .append("li")
+                    .attr("class", "work")
+                    .style("opacity", 1)
+                    .html(function(item) {
+                        return "<a href='" + item.year + "/" + item.pagelinktitle + ".html'>" + item.title + "</a>";
+                    })
+                    //.transition()
+                    //.duration(1500)
+                    //.style("opacity", 1)
+                    .selectAll("a")
+                    .on("mouseover", function() {
+                        var data = d3.select(this.parentNode).datum(); // Retrieve the original dataset associated with the current list item
+                        var description = data.description;
+                        d3.select(".thumbnail").attr("src", data.imglink).style("opacity", "100%");
+                        d3.select("#description").html('<div id = "textbox">' + data.description + '</div>').transition().duration(500).style("opacity", 1);
+                    })
+                    .on("mouseleave", function(data) {
+                        d3.select(".thumbnail").attr("src", "https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif");
+                        d3.select(".textbox").style("opacity", "0");
+                        d3.select("#description").html('<div id = "textbox">' + '</div>').style("opacity", 0);
+                    })
+            });
+    });
+}
+
+
+function posCategory(catList, nestedData) {
+    catList.each(function(d) {
+        d3.select(this)
+            .selectAll("ul")
+            .data(nestedData)
+            .enter()
+            .append("li")
+            .html(function(d) {
+                return "<li>" + "</li><br>";
             })
             .attr("class", "works")
             .each(function(d) {
@@ -395,12 +394,103 @@ function createCategory(catList, nestedData) {
                         d3.select(".textbox").style("opacity", "0");
                         d3.select("#description").html('<div id = "textbox">' + '</div>').style("opacity", 0);
                     })
-                    .transition()
-                    .duration(1500)
-                    .style("opacity", 1);
+                    .style("position", "absolute")
+                    .style("left", function() {
+                        return getRandomPos(window.innerWidth*0.94) + "px"; // Add random offset to the left position
+                    })
+                    .style("top", function() {
+                        return getRandomPos(window.innerHeight*0.9) + "px"; // Add random offset to the top position
+                    })
+                    .datum({ // Add velocity data to each element
+                        vx: Math.random() * 2 - 1, // Random velocity in x-direction
+                        vy: Math.random() * 2 - 1 // Random velocity in y-direction
+                    });
+
+                    
             });
     });
 }
+
+function animateListElementsSTREAM(catList) {
+    var listElements = catList.selectAll("li *");
+
+    setInterval(function() {
+        listElements.each(function() {
+            var element = d3.select(this);
+            var newX = getRandomPos(window.innerWidth*0.94)//parseInt(element.style("left")) + getRandomOffset(200) - 10; // Random change in X direction
+            var newY = getRandomPos(window.innerHeight*0.9)//parseInt(element.style("top")) + getRandomOffset(200) - 10; // Random change in Y direction
+
+            element.transition()
+                .duration(30) 
+                .style("left", newX + "px")
+                .style("top", newY + "px");
+        });
+    }, 30); 
+}
+
+function animateListElementsrunaway(catList) {
+    var listElements = catList.selectAll("li.work > *").datum(function(d) { return d; });
+    function updatePositions() {
+        listElements.each(function() {
+            var element = d3.select(this);
+            var currentX = parseInt(element.style("left"));
+            var currentY = parseInt(element.style("top"));
+
+            var newX = currentX + getRandomOffset(20) - 10;
+            var newY = currentY + getRandomOffset(20) - 10;
+
+            element.style("left", newX + "px");
+            element.style("top", newY + "px");
+        });
+
+        requestAnimationFrame(updatePositions);
+    }
+    updatePositions();
+}
+
+
+
+function animateListElementsFLOATER(catList) {
+    var listElements = catList.selectAll("li *").datum(function() {
+        return {
+            vx: 2*(Math.random() * 2 - 1), // Random velocity in x-direction
+            vy: 2*(Math.random() * 2 - 1) // Random velocity in y-direction
+        };
+    });
+
+    function updatePositions() {
+    listElements.each(function(d) {
+        var element = d3.select(this);
+
+        var currentX = parseFloat(element.style("left")) || 0;
+            var currentY = parseFloat(element.style("top")) || 0;
+            var vx = d.vx || 0;
+            var vy = d.vy || 0;
+
+            var newX = currentX + vx;
+            var newY = currentY + vy;
+
+            if (newX < 0 || newX + element.node().getBoundingClientRect().width > window.innerWidth) {
+                vx *= -1;
+            }
+            if (newY < 0 || newY + element.node().getBoundingClientRect().height > window.innerHeight) {
+                vy *= -1;
+            }
+
+            d.vx = vx;
+            d.vy = vy;
+
+            element.style("left", newX + "px");
+            element.style("top", newY + "px");
+      
+    });
+
+    requestAnimationFrame(updatePositions);
+  }
+    updatePositions(); // Start the animation loop
+}
+
+
   createCategory(cat1list, nest1);
 
   var mode = 0
@@ -430,35 +520,52 @@ function createCategory(catList, nestedData) {
       d3.select(this).text("PROGRAM: 3")
     }
     else if (mode == 2){
-      mode = 0
-      cat3list.selectAll("li, li *")
-        .transition()
-        .duration(500)
-        .style("opacity", 0)
-        .remove();
-      createCategory(cat1list, nest1);
-      d3.select(this).text("PROGRAM: 1")
-      /*
-      cat3list.selectAll("li, li *")
-        .transition()
-        .duration(500)
-        .style("opacity", 0)
-        .remove();
       mode = 3
+      cat3list.selectAll("li, li *")
+        .transition()
+        .duration(500)
+        .style("opacity", 0)
+        .remove();
+
+      posCategory(cat1list, nest1);
+      animateListElementsFLOATER(cat1list);
 
       d3.select(this).text("NIHILIST MODE")
-      */
+      
     }
-    /*
+    
     else if (mode == 3){
-      mode = 0
+      mode = 4
 
+      cat1list.selectAll("li, li *")
+        .transition()
+        .duration(500)
+        .style("opacity", 0)
+        .remove();
+
+      posCategory(cat1list, nest1);
+      animateListElementsSTREAM(cat1list);
+
+      d3.select(this).text("PROGRAM: ***")
+
+    }
+
+        
+    else if (mode == 4){
+      cat1list.selectAll("li, li *")
+        .transition()
+        .duration(500)
+        .style("opacity", 0)
+        .remove();
+      
+      mode = 0
       createCategory(cat1list, nest1);
       d3.select(this).text("PROGRAM: 1")
 
-    }*/
+    }
     });
 
+    /*
   function highlightRandomElement() {
       var listItems = d3.selectAll(".work");
       listItems.classed("highlight", false);
@@ -468,6 +575,7 @@ function createCategory(catList, nestedData) {
       data = d3.select(randomListItem).datum(); // Retrieve the original dataset associated with the current list item
       d3.select(".thumbnail").attr("src", data.imglink).style("opacity", "100%")
   }
+  */
 
   var currentIndex = 0;
 
@@ -513,6 +621,14 @@ function getRandomNumber(min, max) {
   return Math.random() * (max - min) + min;
 }
 
+function getRandomPos(max) {
+    // Generate a random offset value between -50 and 50 (adjust range as needed)
+    return Math.floor(Math.random() * max);
+}
+function getRandomOffset(max) {
+    // Generate a random offset value between -max/2 and max/2
+    return Math.floor(Math.random() * max) - max / 2;
+}
 
 </script>
 </body>
