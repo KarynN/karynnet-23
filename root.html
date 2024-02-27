@@ -307,7 +307,9 @@ d3.csv("spread.csv").then(function(data) {
     // Group data by category
     var nest1 = d3.group(data, d => d.format);
     var nest2 = d3.group(data, d => d.concept);
-    var nest3 = d3.group(data, d => d.year);
+    var nest3temp = d3.group(data, d => d.year);
+    var sortedKeys = Array.from(nest3temp.keys()).sort((a, b) => b - a); // Sort keys in descending order
+    var nest3 = new Map(sortedKeys.map(key => [key, nest3temp.get(key)]));
 
     // Select the description list
     var cat1list = d3.select("#cat1");
