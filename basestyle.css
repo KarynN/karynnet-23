@@ -107,11 +107,11 @@ img {
 	letter-spacing: 1px;
 	position: absolute;
 	left: 10px;
-	top: 40vh;
+	top: -55vh;
 	background-color: rgba(0, 0, 0, 0.0);
 	min-width: 700px;
 	max-width: 98vw;
-	height: 60vh;
+	height: 55vh;
 	overflow-x: hidden;
 	overflow-y: auto;
 	text-align: justify;
