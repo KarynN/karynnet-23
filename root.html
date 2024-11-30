@@ -53,6 +53,7 @@ body {
   font-size: 20px;
   position: relative;
   padding-top: 10px;
+  width: 98vw;
 }
 
 .everything-list{
@@ -310,10 +311,9 @@ d3.csv("spread.csv").then(function(data) {
     var nest1 = d3.group(data, d => d.format);
     var nest2 = d3.group(data, d => d.concept);
     var nest3temp = d3.group(data, d => d.year);
-    var sortedKeys = Array.from(nest3temp.keys()).sort((a, b) => b - a); // Sort keys in descending order
+    var sortedKeys = Array.from(nest3temp.keys()).sort((a, b) => b - a); 
     var nest3 = new Map(sortedKeys.map(key => [key, nest3temp.get(key)]));
 
-    // Select the description list
     var cat1list = d3.select("#cat1");
     var cat2list = d3.select("#cat2");
     var cat3list = d3.select("#cat3");

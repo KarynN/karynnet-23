@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	var openscroll = document.getElementsByClassName("text");
 	var scrolltxtbox = document.getElementsByClassName("scroll");
 	
-		// Open the corresponding div when the button is clicked
 	for (var i = 0; i < openscroll.length; i++) {
 			openscroll[i].addEventListener("click", function() {
 				console.log("scroll")
