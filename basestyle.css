@@ -225,14 +225,17 @@ p, iframe {
 	.scroll{
 		min-width: 90vw;
 		top: -50vh;
-
+		bottom: 100px;
+		overflow-y: auto;
+		padding-bottom: 50px;
+		box-sizing: border-box;
 	}
 
 	.excerpt{
 		min-width: auto;
 		padding: 50px;
 		padding-top: 100px;
-		padding-bottom: 100px;
+		padding-bottom: -100px;
 	}
 	
 	h3{
@@ -247,5 +250,17 @@ p, iframe {
 
 	.footer{
 		filter: drop-shadow(0px 0px 0px black);
+	}
+}
+
+@media screen and (max-width: 667px) {
+
+	.scroll{
+		min-width: 90vw;
+		top: -40vh;
+		bottom: 100px;
+		overflow-y: auto;
+		padding-bottom: 50px;
+		box-sizing: border-box;
 	}
 }
