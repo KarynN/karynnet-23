@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta author='Karyn Nakamura'>
+  <title>Karyn</title>
+  <meta name="viewport" content="initial-scale=1" />
+  <link rel="icon" href="../folder.png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+
+    .desktopimg {
+      height: 100vh;
+      width: 100vw;
+      object-fit: cover;
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 0;
+    }
+
+    #media-layer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Preview windows in media layer */
+    .preview-window {
+      position: absolute;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.25s cubic-bezier(0.2, 0, 0.13, 1.5), transform 0.25s cubic-bezier(0.2, 0, 0.13, 1.5);
+      pointer-events: auto;
+    }
+    .preview-window.visible { opacity: 1; transform: scale(1); }
+    .preview-window.closing { opacity: 0; transform: scale(0.5); }
+    .preview-window .titlebar {
+      background: linear-gradient(180deg, #e8e6e8 0%, #d4d2d4 100%);
+      height: 22px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      border-bottom: 1px solid #b0aeb0;
+      position: relative;
+      cursor: grab;
+    }
+    .preview-window .titlebar:active { cursor: grabbing; }
+    .preview-window .titlebar .traffic-lights {
+      display: flex;
+      gap: 5px;
+    }
+    .preview-window .titlebar .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .preview-window .titlebar-text {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: #4d4d4d;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 60%;
+    }
+    .preview-window .preview-body {
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .preview-window .preview-body img,
+    .preview-window .preview-body video {
+      display: block;
+      max-width: 560px;
+      max-height: 440px;
+      min-width: 300px;
+      min-height: 200px;
+      width: auto;
+      height: auto;
+    }
+
+    #textedit-window {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 420px;
+      z-index: 10;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(0,0,0,0.3);
+    }
+
+    .titlebar {
+      background: linear-gradient(180deg, #e8e6e8 0%, #d4d2d4 100%);
+      height: 28px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border-bottom: 1px solid #b0aeb0;
+      position: relative;
+      cursor: grab;
+    }
+    .titlebar:active { cursor: grabbing; }
+
+    .traffic-lights {
+      display: flex;
+      gap: 6px;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ff5f57; border: 0.5px solid #e0443e; cursor: pointer; }
+    .dot-yellow { background: #febc2e; border: 0.5px solid #dea123; }
+    .dot-green { background: #28c840; border: 0.5px solid #1aab29; }
+
+    .titlebar-text {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      color: #4d4d4d;
+      font-weight: 400;
+    }
+
+    .window-body {
+      background: #fff;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px 0;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .num {
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+      font-size: 15px;
+      color: #333;
+      padding: 3px 8px;
+      cursor: default;
+      text-align: center;
+      border-radius: 2px;
+      user-select: none;
+    }
+    .num:hover {
+      background: #3b82f6;
+      color: #fff;
+    }
+    .num.pinned {
+      background: #3b82f6;
+      color: #fff;
+    }
+    .num.empty {
+      color: #bbb;
+    }
+    .num.empty:hover {
+      background: none;
+      color: #bbb;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+    }
+    .footer a {
+      font-family: Quantico, sans-serif;
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      letter-spacing: 3px;
+    }
+    .footer a:hover {
+      color: red;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <img class="desktopimg" src="../desktop.png">
+
+  <div id="media-layer"></div>
+
+  <div id="textedit-window">
+    <div class="titlebar">
+      <div class="traffic-lights">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+      </div>
+      <span class="titlebar-text">sequence.txt</span>
+    </div>
+    <div class="window-body" id="number-grid"></div>
+  </div>
+
+  <div class="footer">
+    <a href="../root.html">BACK</a>
+  </div>
+
+<script>
+const MEDIA_MAP = {
+  1: ['B716F582-A991-481F-B42C-3357F1AF42C3.jpg','Karyn-face.png'],
+  2: ['1,348,345km2.png','Screen Shot 2021-03-13 at 9.41.47.png','Screen Shot 2023-01-15 at 23.20.13.png','Screen Shot 2023-01-15 at 23.20.37.png','Screen Shot 2023-01-15 at 23.22.49.png','Screen Shot 2023-01-15 at 23.50.26.png','Screen Shot 2023-02-10 at 0.09.56.png','VL2R.png','VisualizeNYC.png','scrnsht.png'],
+  3: ['IMG_2544 (1).jpeg','IMG_6429.jpeg','Screen Shot 2023-01-15 at 20.22.34.png','Screen Shot 2023-01-15 at 21.58.07.png','Screen Shot 2023-01-15 at 21.59.00.png','Screen Shot 2023-01-15 at 21.59.35.png','Screen Shot 2023-01-15 at 22.01.12.png','Screen Shot 2023-01-15 at 22.02.41.png','cover.png','hug.png'],
+  4: ['649BDC4D-DAFD-4DD4-A63B-F7B6DC5E60DE.jpg','B9227212-A1E4-4809-AC24-B13247A3A4D5 2.jpg','DSCF1659.jpg','IMG_0691.jpeg','IMG_7879.jpeg','IMG_9012.jpeg','Screen Shot 2022-05-14 at 16.31.50.png','cover.png','img2 copy.jpg','mappmontreal.jpeg','still2.png'],
+  5: ['DSC00555.jpg'],
+  6: ['IMG_2288.jpeg'],
+  7: ['_DSF6390-Edit.jpg'],
+  8: ['ps3.mov'],
+  9: ['403E24ED-366D-4154-AFE4-084ED52CB674.jpg','Device_for_deterritorialization1.jpg','digging-img2.jpg'],
+  10: ['resume.001.jpeg'],
+  11: ['resume.002.jpeg'],
+  12: [],
+  13: ['A36AC81E-B66E-426B-9BF4-8BD28CD6E219.jpg','guide9title.jpg','sd_portrait3_019.png'],
+  14: ['1hmr_ch3_2.mp4','FFEC2F11-CF7D-421A-A454-C5662A04FD2C_1_105_c.jpeg','PHALP_HMRtest2.mp4','Screenshot 2024-06-25 at 0.20.43.png','Unknown-2 copy.png'],
+  15: ['gfr9152-fthenakis.jpg'],
+  16: ['HO.mov'],
+  17: ['THOUGHT.mp4'],
+  18: ['50C86AA7-055D-428F-BC48-386F7BE6A63F.jpg','8be5f66b6cd84668bfc0f66a8dcb81dd.mov','A0F270BA-39F4-4713-A103-AA5ACF3857DB.jpg','D8695AE9-9236-4A78-9A8A-BB3BD9A21D5E.jpg'],
+  19: ['chan1ripple4.0.mov','transformation.001.jpeg'],
+  20: ['Screenshot 2025-01-30 223624.png'],
+  21: ['Rdispcompd.1.mov','diffusionprocess.001.jpeg','endT14.0.mov'],
+  22: ['0CD6B94D-45A7-49F3-8F5D-797037C5933D.JPG'],
+  23: ['s_J5A9696.jpg'],
+  24: ['00537094-0195-4C30-A3AC-62E87265FAF2.jpg','7903A045-075A-41FE-801A-D90E57BB7B65.jpg','f80acbbf45e54b20a3edf00e535ae537.mov'],
+  25: ['ST_-20.jpg'],
+  26: ['IMG_2165.mov'],
+  27: ['2ec13c5418f242af961dd6e0f4739149.mov','IMG_4229.PNG','droneeee.mp4'],
+  28: ['s_Lara Hughes Install.jpg','s_ST_-01.jpg'],
+  29: ['Untitled.mov'],
+  30: ['s_Lara Hughes Install 2.jpg'],
+  31: ['lateral thread mapper (1).mp4'],
+  32: ['pond_0323_1.mp4'],
+  33: ['trashhssjjlffs.mp4'],
+  34: ['7040296e917547b6b924775ee2175970.MOV','7c02380f3e644694bfad839995993d3a.MOV','Untitledtttt.mov'],
+  35: ['399d24dc532b4d9194c44627a9728e31.MOV','990ce6faa292410d87c6a5d8d2cdec38.MOV','9a52e567c0404677a61eb30d07e69323.MOV'],
+  36: ['ef7fb6d4c17f4059a44f8079f4644004.MOV'],
+  37: ['2CB3EF37-35D3-4CBA-9749-A0B52F2A2855.JPG','4639F935-1A81-4EF1-816E-CF5E9F7BAE6E.JPG','B50418E0-12B5-4111-A2AD-8AE560E66646.JPG'],
+  38: ['comp_SS26_SYNTHESIS_ZOO-AS-ZOO_PROCESS_FINAL_1.MP4'],
+  39: ['19d0e4efe3464adc8992ea728fb71ba9.MOV','98bd299cd691484fb603b9e86db7f930.MOV','a455017759a048b4a7969b8d741a0560.MOV']
+};
+
+const VIDEO_EXTS = ['.mov','.mp4','.MOV','.MP4'];
+
+function isVideo(filename) {
+  return VIDEO_EXTS.some(ext => filename.endsWith(ext));
+}
+
+// Build number grid
+const grid = document.getElementById('number-grid');
+for (let i = 1; i <= 39; i++) {
+  const span = document.createElement('span');
+  span.className = 'num' + (MEDIA_MAP[i].length === 0 ? ' empty' : '');
+  span.dataset.folder = i;
+  span.textContent = i;
+  grid.appendChild(span);
+}
+
+const mediaLayer = document.getElementById('media-layer');
+
+// Dragging logic
+function makeDraggable(el, handleSelector) {
+  const handle = handleSelector ? el.querySelector(handleSelector) : el;
+  let dragging = false, startX, startY, origX, origY;
+
+  handle.addEventListener('mousedown', function(e) {
+    if (e.target.closest('.traffic-lights')) return;
+    dragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    const rect = el.getBoundingClientRect();
+    origX = rect.left;
+    origY = rect.top;
+    // Remove centering transform if present
+    el.style.transform = 'none';
+    el.style.left = origX + 'px';
+    el.style.top = origY + 'px';
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    e.preventDefault();
+  });
+
+  function onMove(e) {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    el.style.left = (origX + dx) + 'px';
+    el.style.top = (origY + dy) + 'px';
+  }
+
+  function onUp() {
+    dragging = false;
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+  }
+}
+
+// Make textedit window draggable
+makeDraggable(document.getElementById('textedit-window'), '.titlebar');
+
+// Scatter positions — uses larger item sizes now
+const ITEM_W = 560;
+const ITEM_H = 470; // body + titlebar
+
+function getScatterPositions(count, windowRect) {
+  const pad = 30;
+  const ex = {
+    left: windowRect.left - pad,
+    right: windowRect.right + pad,
+    top: windowRect.top - pad,
+    bottom: windowRect.bottom + pad
+  };
+
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  const zones = [
+    { x1: 0, y1: 0, x2: ex.left - ITEM_W, y2: vh - ITEM_H },
+    { x1: ex.right, y1: 0, x2: vw - ITEM_W, y2: vh - ITEM_H },
+    { x1: 0, y1: 0, x2: vw - ITEM_W, y2: ex.top - ITEM_H },
+    { x1: 0, y1: ex.bottom, x2: vw - ITEM_W, y2: vh - ITEM_H }
+  ].filter(z => z.x2 > z.x1 && z.y2 > z.y1);
+
+  // If no valid zones (window too big), allow anywhere
+  if (zones.length === 0) {
+    zones.push({ x1: 0, y1: 0, x2: Math.max(0, vw - ITEM_W), y2: Math.max(0, vh - ITEM_H) });
+  }
+
+  const positions = [];
+
+  for (let i = 0; i < count; i++) {
+    let placed = false;
+    for (let attempt = 0; attempt < 50; attempt++) {
+      const zone = zones[Math.floor(Math.random() * zones.length)];
+      const x = zone.x1 + Math.random() * (zone.x2 - zone.x1);
+      const y = zone.y1 + Math.random() * (zone.y2 - zone.y1);
+
+      const overlaps = positions.some(p => {
+        const overlapX = Math.max(0, Math.min(x + ITEM_W, p.x + ITEM_W) - Math.max(x, p.x));
+        const overlapY = Math.max(0, Math.min(y + ITEM_H, p.y + ITEM_H) - Math.max(y, p.y));
+        const overlapArea = overlapX * overlapY;
+        return overlapArea / (ITEM_W * ITEM_H) > 0.6;
+      });
+
+      if (!overlaps) {
+        positions.push({ x, y });
+        placed = true;
+        break;
+      }
+    }
+    if (!placed) {
+      const zone = zones[Math.floor(Math.random() * zones.length)];
+      positions.push({
+        x: zone.x1 + Math.random() * (zone.x2 - zone.x1),
+        y: zone.y1 + Math.random() * (zone.y2 - zone.y1)
+      });
+    }
+  }
+  return positions;
+}
+
+function createPreviewWindow(file, folder, pos, delay) {
+  delay = delay || 0;
+  const src = 'media/' + folder + '/' + encodeURIComponent(file);
+
+  const win = document.createElement('div');
+  win.className = 'preview-window';
+  win.dataset.folder = folder;
+  win.style.left = pos.x + 'px';
+  win.style.top = pos.y + 'px';
+
+  // Titlebar
+  const tb = document.createElement('div');
+  tb.className = 'titlebar';
+  tb.innerHTML = '<div class="traffic-lights"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div><span class="titlebar-text">' + file + '</span>';
+  win.appendChild(tb);
+
+  // Body
+  const body = document.createElement('div');
+  body.className = 'preview-body';
+
+  let mediaEl;
+  if (isVideo(file)) {
+    mediaEl = document.createElement('video');
+    mediaEl.src = src;
+    mediaEl.autoplay = true;
+    mediaEl.muted = true;
+    mediaEl.loop = true;
+    mediaEl.playsInline = true;
+  } else {
+    mediaEl = document.createElement('img');
+    mediaEl.src = src;
+  }
+
+  body.appendChild(mediaEl);
+  win.appendChild(body);
+  mediaLayer.appendChild(win);
+
+  // Make preview window draggable
+  makeDraggable(win, '.titlebar');
+
+  // Close on red dot click
+  win.querySelector('.dot-red').addEventListener('click', function(e) {
+    e.stopPropagation();
+    win.classList.remove('visible');
+    win.classList.add('closing');
+    win.addEventListener('transitionend', () => {
+      const vid = win.querySelector('video');
+      if (vid) vid.pause();
+      win.remove();
+    }, { once: true });
+    setTimeout(() => { if (win.parentNode) win.remove(); }, 400);
+  });
+
+  // Staggered open with delay
+  setTimeout(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        win.classList.add('visible');
+      });
+    });
+  }, delay);
+
+  return win;
+}
+
+// Track pinned and hovered state
+const pinnedFolders = new Set();
+
+function dismissFolder(folder) {
+  const items = mediaLayer.querySelectorAll('.preview-window[data-folder="' + folder + '"]');
+  items.forEach(el => {
+    el.classList.remove('visible');
+    el.classList.add('closing');
+    el.addEventListener('transitionend', () => {
+      const vid = el.querySelector('video');
+      if (vid) vid.pause();
+      el.remove();
+    }, { once: true });
+    setTimeout(() => { if (el.parentNode) el.remove(); }, 400);
+  });
+}
+
+function spawnFolder(folder) {
+  const files = MEDIA_MAP[folder];
+  if (!files || files.length === 0) return;
+  const winEl = document.getElementById('textedit-window');
+  const rect = winEl.getBoundingClientRect();
+  const positions = getScatterPositions(files.length, rect);
+  files.forEach((file, idx) => {
+    createPreviewWindow(file, folder, positions[idx], idx * 120);
+  });
+}
+
+document.querySelectorAll('.num:not(.empty)').forEach(span => {
+  // Hover: show temporarily (only if not already pinned)
+  span.addEventListener('mouseenter', function() {
+    const folder = this.dataset.folder;
+    if (pinnedFolders.has(folder)) return;
+    spawnFolder(folder);
+  });
+
+  span.addEventListener('mouseleave', function() {
+    const folder = this.dataset.folder;
+    if (pinnedFolders.has(folder)) return;
+    dismissFolder(folder);
+  });
+
+  // Click: toggle pin
+  span.addEventListener('click', function() {
+    const folder = this.dataset.folder;
+    const files = MEDIA_MAP[folder];
+    if (!files || files.length === 0) return;
+
+    if (pinnedFolders.has(folder)) {
+      // Unpin — dismiss
+      pinnedFolders.delete(folder);
+      this.classList.remove('pinned');
+      dismissFolder(folder);
+    } else {
+      // Pin — windows already showing from hover, just mark pinned
+      pinnedFolders.add(folder);
+      this.classList.add('pinned');
+      // If somehow not showing yet, spawn them
+      if (!mediaLayer.querySelector('.preview-window[data-folder="' + folder + '"]')) {
+        spawnFolder(folder);
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
