@@ -159,6 +159,48 @@
       cursor: pointer;
     }
 
+    #press-window {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      left: auto;
+      top: auto;
+      width: 380px;
+      min-width: 280px;
+      min-height: 200px;
+      z-index: 8;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(0,0,0,0.3);
+    }
+    #press-body {
+      max-height: 60vh;
+    }
+    #press-body .press-heading {
+      font-family: 'Quantico', sans-serif;
+      font-size: 15px;
+      letter-spacing: 9px;
+      font-weight: 400;
+      color: #000;
+      margin: 16px 0 8px;
+    }
+    #press-body .press-heading:first-child {
+      margin-top: 0;
+    }
+    #press-body a {
+      color: #333;
+      text-decoration: underline;
+      font-family: 'Jura', sans-serif;
+    }
+    #press-body a:hover {
+      color: #5a94ad;
+    }
+    #press-body .award-line {
+      font-family: 'Jura', sans-serif;
+      color: #333;
+      margin: 2px 0;
+    }
+
     #textedit-window {
       position: fixed;
       top: 30px;
@@ -260,7 +302,7 @@
       font-family: 'Quantico', sans-serif;
       font-size: 12px;
       letter-spacing: 1px;
-      color: #aaa;
+      color: #777;
       text-shadow: none;
     }
 
@@ -367,6 +409,7 @@
       }
       #finder-frame-window { display: none !important; }
       #finder-minimized { display: none !important; }
+      #press-window { display: none !important; }
       .resize-grip { display: none; }
 
       #mobile-bg {
@@ -433,6 +476,19 @@
       <span class="titlebar-text">Work</span>
     </div>
     <iframe src="finder.html"></iframe>
+    <div class="resize-grip"></div>
+  </div>
+
+  <div id="press-window">
+    <div class="titlebar">
+      <div class="traffic-lights">
+        <div class="dot dot-red" id="press-close"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+      </div>
+      <span class="titlebar-text">press.txt</span>
+    </div>
+    <div class="window-body" id="press-body"></div>
     <div class="resize-grip"></div>
   </div>
 
@@ -605,6 +661,7 @@ function makeDraggable(el, handleSelector) {
 
 // Make textedit window draggable
 makeDraggable(document.getElementById('textedit-window'), '.titlebar');
+makeDraggable(document.getElementById('press-window'), '.titlebar');
 
 // Make finder window draggable
 makeDraggable(document.getElementById('finder-frame-window'), '.titlebar');
@@ -668,6 +725,7 @@ function makeResizable(el) {
 }
 
 makeResizable(document.getElementById('textedit-window'));
+makeResizable(document.getElementById('press-window'));
 makeResizable(document.getElementById('finder-frame-window'));
 
 // Scatter positions
@@ -1075,6 +1133,45 @@ function bindTriggers() {
     });
   });
 }
+
+// Press window
+fetch('press.txt')
+  .then(r => r.text())
+  .then(text => {
+    const body = document.getElementById('press-body');
+    const lines = text.split('\n');
+    lines.forEach(line => {
+      const trimmed = line.trim();
+      if (!trimmed) return;
+      if (trimmed === 'PRESS' || trimmed === 'AWARDS') {
+        const h = document.createElement('div');
+        h.className = 'press-heading';
+        h.textContent = trimmed;
+        body.appendChild(h);
+      } else {
+        const linkMatch = trimmed.match(/^\[(.+?)\]\((.+?)\)$/);
+        if (linkMatch) {
+          const p = document.createElement('div');
+          p.style.margin = '4px 0';
+          const a = document.createElement('a');
+          a.href = linkMatch[2];
+          a.target = '_blank';
+          a.textContent = linkMatch[1];
+          p.appendChild(a);
+          body.appendChild(p);
+        } else {
+          const p = document.createElement('div');
+          p.className = 'award-line';
+          p.textContent = trimmed;
+          body.appendChild(p);
+        }
+      }
+    });
+  });
+
+document.getElementById('press-close').addEventListener('click', function() {
+  document.getElementById('press-window').style.display = 'none';
+});
 </script>
 </body>
 </html>
