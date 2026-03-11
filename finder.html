@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Karyn — Work</title>
+  <meta name="viewport" content="initial-scale=1" />
+  <link rel="icon" href="folder.png">
+  <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Jura:wght@300;400&family=Quantico&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      overflow-y: auto;
+      background: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .finder-layout {
+      display: flex;
+      height: 100%;
+    }
+
+    .sidebar {
+      width: 130px;
+      min-width: 130px;
+      background: #f0f0f0;
+      border-right: 1px solid #ccc;
+      padding: 10px 0;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .sidebar-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 8px 12px 4px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .sidebar-item {
+      padding: 4px 12px;
+      font-size: 12px;
+      color: #333;
+      cursor: pointer;
+      border-radius: 4px;
+      margin: 1px 6px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .sidebar-item:hover {
+      background: rgba(0,0,0,0.06);
+    }
+    .sidebar-item.active {
+      background: #d0d0d0;
+      font-weight: 500;
+    }
+
+    .sidebar .sort-btn {
+      display: block;
+      width: calc(100% - 24px);
+      min-width: 0;
+      margin: 12px 12px 8px;
+      line-height: 1.5em;
+      padding: 4px 2px;
+      cursor: pointer;
+      text-align: center;
+      background: #fff;
+      font-size: 11px;
+      border: 1px solid #d0d0d0;
+      color: black;
+      font-family: Aldrich, sans-serif;
+    }
+    .sidebar .sort-btn:hover {
+      color: cyan;
+      border: 2px solid cyan;
+      filter: drop-shadow(0px 0px 5px chartreuse);
+    }
+
+    .main-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .col-header {
+      display: grid;
+      grid-template-columns: 1fr 100px;
+      padding: 4px 12px;
+      background: linear-gradient(180deg, #f8f8f8 0%, #e8e8e8 100%);
+      border-bottom: 1px solid #ccc;
+      font-size: 11px;
+      color: #555;
+      font-weight: 500;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      cursor: default;
+      user-select: none;
+    }
+    .col-header span {
+      padding: 2px 0;
+    }
+    .col-header span:not(:last-child) {
+      border-right: 1px solid #d0d0d0;
+      padding-right: 8px;
+      margin-right: 8px;
+    }
+    .col-header .sortable { cursor: pointer; }
+    .col-header .sortable:hover { color: #000; }
+    .col-header .sortable.active { color: #000; font-weight: 500; }
+
+    .section-row {
+      display: grid;
+      grid-template-columns: 1fr 100px;
+      padding: 10px 12px 4px;
+      background: none;
+      font-family: Quantico, sans-serif;
+      font-size: 15px;
+      letter-spacing: 9px;
+      color: black;
+      font-weight: 400;
+      border-bottom: none;
+      cursor: pointer;
+    }
+    .section-row .folder-icon::before {
+      content: '▼ ';
+      font-size: 8px;
+      margin-right: 6px;
+      letter-spacing: 0;
+    }
+    .section-row.collapsed .folder-icon::before {
+      content: '▶ ';
+    }
+
+    .item-row {
+      display: grid;
+      grid-template-columns: 1fr 100px;
+      padding: 3px 12px 3px 28px;
+      font-size: 14.5px;
+      border-bottom: 1px solid #f0f0f0;
+      align-items: center;
+      cursor: default;
+    }
+    .item-row:hover {
+      background: none;
+    }
+
+    .item-row .name-cell {
+      font-family: Jura, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .item-row .name-cell a {
+      display: inline-block;
+    }
+    .item-row.scrolling .name-cell a {
+      animation: marquee var(--marquee-duration, 4s) linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      40% { transform: var(--scroll-x); }
+      60% { transform: var(--scroll-x); }
+      100% { transform: translateX(0); }
+    }
+    .item-row .name-cell a {
+      color: #333;
+      text-decoration: none;
+    }
+    .item-row:hover .name-cell a {
+      color: red;
+      font-family: Aldrich, sans-serif;
+      letter-spacing: 1px;
+    }
+    .item-row .meta-cell {
+      font-size: 11px;
+      color: #888;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="finder-layout">
+    <div class="sidebar">
+      <button class="sort-btn" id="sort-btn">PROGRAM: 1</button>
+      <div style="height:6px"></div>
+      <div class="sidebar-label">Filter</div>
+      <div class="sidebar-item active" data-filter="all">All Work</div>
+      <div style="height:6px"></div>
+      <div class="sidebar-label" id="filter-label">Format</div>
+      <div id="filter-items"></div>
+    </div>
+    <div class="main-area">
+      <div class="col-header">
+        <span class="sortable active" data-sort="year">Title</span>
+        <span class="sortable" data-sort="year">Date</span>
+      </div>
+      <div id="table-body" style="flex:1;overflow-y:auto;"></div>
+    </div>
+  </div>
+
+<script>
+let DATA = [];
+let currentSort = 'year';
+let currentFilter = 'all';
+let mode = 0; // 0=format, 1=concept, 2=year
+let collapsed = new Set();
+
+fetch('spread.csv')
+  .then(r => r.text())
+  .then(csv => {
+    DATA = parseCSV(csv);
+    buildSidebar();
+    render();
+  });
+
+function parseCSV(text) {
+  const lines = text.split('\n');
+  const headers = lines[0].split(',');
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    const row = {};
+    let col = 0, inQuote = false, val = '';
+    for (let c = 0; c < lines[i].length; c++) {
+      const ch = lines[i][c];
+      if (ch === '"') { inQuote = !inQuote; continue; }
+      if (ch === ',' && !inQuote) {
+        row[headers[col].trim()] = val;
+        val = '';
+        col++;
+        continue;
+      }
+      val += ch;
+    }
+    row[headers[col].trim()] = val;
+    rows.push(row);
+  }
+  return rows;
+}
+
+function groupBy(data, key) {
+  const map = new Map();
+  data.forEach(d => {
+    const k = d[key] || 'Other';
+    if (!map.has(k)) map.set(k, []);
+    map.get(k).push(d);
+  });
+  return map;
+}
+
+function getGroupKey() {
+  if (mode === 0) return 'format';
+  if (mode === 1) return 'concept';
+  return 'year';
+}
+
+function buildSidebar() {
+  const key = getGroupKey();
+  const filterItems = document.getElementById('filter-items');
+  filterItems.innerHTML = '';
+  document.getElementById('filter-label').textContent = key.charAt(0).toUpperCase() + key.slice(1);
+
+  const values = [...new Set(DATA.map(d => d[key]))].sort();
+  if (key === 'year') values.sort((a, b) => (parseInt(b) || 0) - (parseInt(a) || 0));
+
+  values.forEach(v => {
+    const el = document.createElement('div');
+    el.className = 'sidebar-item';
+    if (currentFilter === v) el.classList.add('active');
+    el.dataset.filter = v;
+    el.textContent = v;
+    el.addEventListener('click', function() {
+      document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+      this.classList.add('active');
+      currentFilter = v;
+      render();
+    });
+    filterItems.appendChild(el);
+  });
+}
+
+function render() {
+  const body = document.getElementById('table-body');
+  body.innerHTML = '';
+
+  const groupKey = getGroupKey();
+  let filtered = DATA;
+  if (currentFilter !== 'all') {
+    filtered = DATA.filter(d => d[groupKey] === currentFilter);
+  }
+
+  let grouped;
+  if (groupKey === 'year') {
+    const temp = groupBy(filtered, 'year');
+    const keys = [...temp.keys()].sort((a, b) => (parseInt(b) || 0) - (parseInt(a) || 0));
+    grouped = new Map(keys.map(k => [k, temp.get(k)]));
+  } else {
+    grouped = groupBy(filtered, groupKey);
+  }
+
+  let total = 0;
+  grouped.forEach((items, key) => {
+    const isCollapsed = collapsed.has(key);
+
+    const section = document.createElement('div');
+    section.className = 'section-row' + (isCollapsed ? ' collapsed' : '');
+    section.style.cursor = 'pointer';
+    section.innerHTML = '<span class="folder-icon">' + key.toUpperCase() + '/</span><span></span>';
+
+    section.addEventListener('click', function() {
+      if (collapsed.has(key)) {
+        collapsed.delete(key);
+      } else {
+        collapsed.add(key);
+      }
+      render();
+    });
+
+    body.appendChild(section);
+
+    if (!isCollapsed) {
+      items.forEach(item => {
+        total++;
+        const row = document.createElement('div');
+        row.className = 'item-row';
+        const month = item.month ? item.month + ' ' : '';
+        row.innerHTML =
+          '<div class="name-cell"><a href="' + item.year + '/' + item.pagelinktitle + '.html"' +
+          (window !== window.top ? ' target="_top"' : '') +
+          '>' + item.title + '</a></div>' +
+          '<span class="meta-cell">' + month + (item.year || '') + '</span>';
+        body.appendChild(row);
+      });
+    } else {
+      total += items.length;
+    }
+  });
+
+}
+
+// Update triangle direction based on collapsed state
+const origCSS = document.querySelector('.section-row .folder-icon');
+
+// Override folder-icon to show correct triangle
+const style = document.createElement('style');
+document.head.appendChild(style);
+
+// Column header sorting
+document.querySelectorAll('.col-header .sortable').forEach(el => {
+  el.addEventListener('click', function() {
+    document.querySelectorAll('.col-header .sortable').forEach(s => s.classList.remove('active'));
+    this.classList.add('active');
+    currentSort = this.dataset.sort;
+    render();
+  });
+});
+
+// "All" filter
+document.querySelector('.sidebar-item[data-filter="all"]').addEventListener('click', function() {
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+  this.classList.add('active');
+  currentFilter = 'all';
+  render();
+});
+
+// Scroll overflowing names on hover
+document.getElementById('table-body').addEventListener('mouseover', function(e) {
+  const row = e.target.closest('.item-row');
+  if (!row) return;
+  const cell = row.querySelector('.name-cell');
+  const link = cell.querySelector('a');
+  if (!link) return;
+  const overflow = link.scrollWidth - cell.clientWidth;
+  if (overflow > 0) {
+    row.style.setProperty('--scroll-x', 'translateX(-' + overflow + 'px)');
+    const duration = Math.max(3, overflow / 30);
+    row.style.setProperty('--marquee-duration', duration + 's');
+    row.classList.add('scrolling');
+  }
+});
+document.getElementById('table-body').addEventListener('mouseout', function(e) {
+  const row = e.target.closest('.item-row');
+  if (!row) return;
+  row.classList.remove('scrolling');
+});
+
+// PROGRAM button
+document.getElementById('sort-btn').addEventListener('click', function() {
+  if (mode === 0) {
+    mode = 1;
+    this.textContent = 'PROGRAM: 2';
+  } else if (mode === 1) {
+    mode = 2;
+    this.textContent = 'PROGRAM: 3';
+  } else if (mode === 2) {
+    mode = 3;
+    this.textContent = 'NIHILIST MODE';
+    currentFilter = 'all';
+    collapsed.clear();
+    buildSidebar();
+    document.querySelector('.sidebar-item[data-filter="all"]').classList.add('active');
+    renderNihilist();
+    return;
+  } else if (mode === 3) {
+    mode = 4;
+    this.textContent = 'PROGRAM: ***';
+    renderStream();
+    return;
+  } else {
+    mode = 0;
+    this.textContent = 'PROGRAM: 1';
+    if (nihilistInterval) { clearInterval(nihilistInterval); nihilistInterval = null; }
+  }
+  currentFilter = 'all';
+  collapsed.clear();
+  buildSidebar();
+  document.querySelector('.sidebar-item[data-filter="all"]').classList.add('active');
+  render();
+});
+
+let nihilistInterval = null;
+
+function renderNihilist() {
+  const body = document.getElementById('table-body');
+  body.innerHTML = '';
+  body.style.position = 'relative';
+  body.style.overflow = 'hidden';
+  if (nihilistInterval) clearInterval(nihilistInterval);
+
+  const bw = body.offsetWidth;
+  const bh = body.offsetHeight;
+
+  DATA.forEach(item => {
+    const el = document.createElement('a');
+    el.href = item.year + '/' + item.pagelinktitle + '.html';
+    if (window !== window.top) el.target = '_top';
+    el.textContent = item.title;
+    el.style.cssText = 'position:absolute;font-family:Jura,sans-serif;font-size:14px;letter-spacing:1px;color:black;text-decoration:none;white-space:nowrap;';
+    el.style.left = Math.random() * (bw * 0.8) + 'px';
+    el.style.top = Math.random() * (bh * 0.9) + 'px';
+    el.addEventListener('mouseenter', function() {
+      this.style.color = 'red';
+      this.style.fontFamily = 'Aldrich';
+      this.style.letterSpacing = '9px';
+    });
+    el.addEventListener('mouseleave', function() {
+      this.style.color = 'black';
+      this.style.fontFamily = 'Jura';
+      this.style.letterSpacing = '1px';
+    });
+    el.dataset.vx = (Math.random() * 2 - 1) * 2;
+    el.dataset.vy = (Math.random() * 2 - 1) * 2;
+    body.appendChild(el);
+  });
+
+  function animate() {
+    const pw = body.offsetWidth;
+    const ph = body.offsetHeight;
+    body.querySelectorAll('a').forEach(el => {
+      let x = parseFloat(el.style.left) || 0;
+      let y = parseFloat(el.style.top) || 0;
+      let vx = parseFloat(el.dataset.vx);
+      let vy = parseFloat(el.dataset.vy);
+      const ew = el.offsetWidth;
+      const eh = el.offsetHeight;
+      x += vx;
+      y += vy;
+      if (x < 0 || x + ew > pw) { vx *= -1; x = Math.max(0, Math.min(x, pw - ew)); }
+      if (y < 0 || y + eh > ph) { vy *= -1; y = Math.max(0, Math.min(y, ph - eh)); }
+      el.dataset.vx = vx;
+      el.dataset.vy = vy;
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+    });
+  }
+  nihilistInterval = setInterval(animate, 30);
+}
+
+function renderStream() {
+  if (nihilistInterval) clearInterval(nihilistInterval);
+  const body = document.getElementById('table-body');
+  nihilistInterval = setInterval(function() {
+    const pw = body.offsetWidth;
+    const ph = body.offsetHeight;
+    body.querySelectorAll('a').forEach(el => {
+      el.style.left = Math.random() * (pw * 0.8) + 'px';
+      el.style.top = Math.random() * (ph * 0.9) + 'px';
+    });
+  }, 30);
+}
+</script>
+</body>
+</html>

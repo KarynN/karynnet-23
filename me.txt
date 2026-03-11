@@ -1,0 +1,48 @@
+Hi! My name is [1]Karyn[/1]. I'm originally from Tokyo, came to the US to go to [4]MIT[/4] and now based in New York. I am deeply obsessed with the technical infrastructure of systems that shape communication, perception, and storytelling. I LOVE chasing weird problems like: 
+
+- [17] When we rely on technology as an intermediary for vision, how do we validate its interpretations? [/17] And how to make a microscopic film by using the kinetic energy of light to [20]puppeteer neurons [/20]
+Nick Knight, SHOWStudio, Steve Jobs Archive
+
+- How might the tools we use to understand the world be designed to enhance away its truths? And how to build an AI beautification machine and a bunch of [21] animatronic "trash robots"[/21] for New York Fashion Week S/S 26
+Zoo as Zoo, SHOWStudio
+
+- What do people think fakeness looks like? And making a ton of deepfakes for [13]deepfake identification research[/13] and publishing a [19] paper in CHI and a preprint shared at IC2S2 [/19] on taxonomizing visual artifacts in AI-generated images and identifying people's heuristics for fakeness.
+Human AI Collaboration Lab
+
+- How do we develop and calibrate trust in AI-powered [15]tooling for analyzing video evidence?[/15] 
+SITU Research
+
+- How to build a camera-based auto-calibration pipeline for a 22 camera, 34 projector system 
+Google, Spectra Studio
+
+- Exploring the [8]syntactic logic of AI video generation[/8] (wayyy back in 2023)
+NOWNESS Asia
+
+- What counts as innovation? And how to build a [6]20ft tall tower of suspended CRTs in glass tanks filled with oil[/6] and Frankenstein a server for 60 screens out of e-waste you found dumpster diving around MIT, all inside a secret abandoned Frank Gehry bar AND not get in trouble and also convince important people to fund it.
+Arts at MIT, MIT CSAIL
+
+- How to light a [5]400ft wide, 10 story tall building with live audiovisual projection mapping [/5]
+
+- How to trap a NY-based jazz duo inside a [7]pile of music hardware[/7] in a boutique in Tokyo
+DOMICILE Tokyo
+
+- How to repair and restore old Nam June Paik (and other 60s 70s experimental video art) with conservators and a [10]TV shop in SoHo[/10].
+CTL Electronics
+
+- [12]Who is MIT? (trailer)[/12]
+
+- How to stage a live performance and [14]record it onto vinyl live[/14] via an assembly line of 1940s record cutter lathes with Audio Technica.
+CEKAI, Audio Technica, On the Fly Records
+
+- How to [11]visualize NYC open data[/11], make [2]interactive websites[/2] and all sorts of [3]interactive projection experiences[/3]
+Civic Data Design Lab, MAPP Montreal, monopo NYC, DISC
+
+I have previously worked with, worked for, and/or been supported by these people and organizations: 
+
+Nick Knight and SHOWStudio, Steve Jobs Archive, Singapore International Festival of Arts, Civic Data Design Lab, Human AI Collaboration Lab, SITU Research, Technical University of Munich, Google, Spectra Studio, Brooklyn Academy of Music, Zoo as Zoo, APOSSIBLE, South Park Commons, LeRoy Bennett.
+
+
+I have been in [9]solo and group shows[/9] at: 
+
+DOMICILE (Tokyo), Tata (Tokyo), Mother's Tank Station (London), lower cavity (Massachusetts), Foreign & Domestic (New York), MIT Compton Gallery, Space Edge (Tokyo), Same Gallery (Tokyo), C7C gallery, Lian, Haku Kyoto, ie
+
