@@ -143,18 +143,13 @@
       align-items: center;
       justify-content: center;
     }
-    .preview-window .preview-body.tv-static-bg {
+    .preview-window .preview-body.preview-thumb {
       width: 110px;
       height: 90px;
-      position: relative;
       background-color: #000;
-      background-image: url("https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif");
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
       overflow: hidden;
     }
-    .preview-window.link-window .preview-body.tv-static-bg {
+    .preview-window.link-window .preview-body.preview-thumb {
       cursor: pointer;
     }
     .preview-window.link-window .preview-body iframe {
@@ -172,11 +167,11 @@
       object-fit: contain;
       cursor: pointer;
     }
-    .preview-window.link-window .preview-body.tv-static-bg img {
+    .preview-window.link-window .preview-body.preview-thumb img {
       max-width: 110px;
       max-height: 90px;
     }
-    .preview-window .preview-body.tv-static-bg img {
+    .preview-window .preview-body.preview-thumb img {
       display: block;
       max-width: 110px;
       max-height: 90px;
@@ -758,8 +753,22 @@ makeResizable(document.getElementById('finder-frame-window'));
 // Scatter positions
 const ITEM_W = 560;
 const ITEM_H = 470;
+const IMAGE_THUMB_W = 110;
+const IMAGE_THUMB_H = 90;
+const IMAGE_WINDOW_H = 112;
+const LINKIMG_WINDOW_H = 150;
 
-function getScatterPositions(count, windowRect) {
+function getEntryScatterSize(entry) {
+  if (entry.type === 'linkimg') {
+    return { w: IMAGE_THUMB_W, h: LINKIMG_WINDOW_H };
+  }
+  if (entry.type === 'file' && !isVideo(entry.value)) {
+    return { w: IMAGE_THUMB_W, h: IMAGE_WINDOW_H };
+  }
+  return { w: ITEM_W, h: ITEM_H };
+}
+
+function getScatterPosition(existing, windowRect, itemW, itemH) {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
 
@@ -767,8 +776,8 @@ function getScatterPositions(count, windowRect) {
   if (isMobile()) {
     // On mobile, scatter in the top half only
     const halfH = vh * 0.5;
-    const mobileItemW = Math.min(ITEM_W, vw * 0.85);
-    const mobileItemH = Math.min(ITEM_H, halfH * 0.8);
+    const mobileItemW = Math.min(itemW, vw * 0.85);
+    const mobileItemH = Math.min(itemH, halfH * 0.8);
     zones = [
       { x1: 0, y1: 0, x2: Math.max(0, vw - mobileItemW), y2: Math.max(0, halfH - mobileItemH) }
     ];
@@ -782,48 +791,78 @@ function getScatterPositions(count, windowRect) {
     };
 
     zones = [
-      { x1: 0, y1: 0, x2: ex.left - ITEM_W, y2: vh - ITEM_H },
-      { x1: ex.right, y1: 0, x2: vw - ITEM_W, y2: vh - ITEM_H },
-      { x1: 0, y1: 0, x2: vw - ITEM_W, y2: ex.top - ITEM_H },
-      { x1: 0, y1: ex.bottom, x2: vw - ITEM_W, y2: vh - ITEM_H }
+      { x1: 0, y1: 0, x2: ex.left - itemW, y2: vh - itemH },
+      { x1: ex.right, y1: 0, x2: vw - itemW, y2: vh - itemH },
+      { x1: 0, y1: 0, x2: vw - itemW, y2: ex.top - itemH },
+      { x1: 0, y1: ex.bottom, x2: vw - itemW, y2: vh - itemH }
     ].filter(z => z.x2 > z.x1 && z.y2 > z.y1);
   }
 
   if (zones.length === 0) {
-    zones.push({ x1: 0, y1: 0, x2: Math.max(0, vw - ITEM_W), y2: Math.max(0, vh - ITEM_H) });
+    zones.push({ x1: 0, y1: 0, x2: Math.max(0, vw - itemW), y2: Math.max(0, vh - itemH) });
   }
 
+  for (let attempt = 0; attempt < 50; attempt++) {
+    const zone = zones[Math.floor(Math.random() * zones.length)];
+    const x = zone.x1 + Math.random() * (zone.x2 - zone.x1);
+    const y = zone.y1 + Math.random() * (zone.y2 - zone.y1);
+
+    const overlaps = existing.some(p => {
+      const overlapX = Math.max(0, Math.min(x + itemW, p.x + p.w) - Math.max(x, p.x));
+      const overlapY = Math.max(0, Math.min(y + itemH, p.y + p.h) - Math.max(y, p.y));
+      const overlapArea = overlapX * overlapY;
+      const smallerArea = Math.min(itemW * itemH, p.w * p.h);
+      return smallerArea > 0 && overlapArea / smallerArea > 0.6;
+    });
+
+    if (!overlaps) {
+      return { x, y };
+    }
+  }
+
+  const zone = zones[Math.floor(Math.random() * zones.length)];
+  return {
+    x: zone.x1 + Math.random() * (zone.x2 - zone.x1),
+    y: zone.y1 + Math.random() * (zone.y2 - zone.y1)
+  };
+}
+
+function getScatterPositions(count, windowRect, itemW = ITEM_W, itemH = ITEM_H) {
   const positions = [];
-
   for (let i = 0; i < count; i++) {
-    let placed = false;
-    for (let attempt = 0; attempt < 50; attempt++) {
-      const zone = zones[Math.floor(Math.random() * zones.length)];
-      const x = zone.x1 + Math.random() * (zone.x2 - zone.x1);
-      const y = zone.y1 + Math.random() * (zone.y2 - zone.y1);
-
-      const overlaps = positions.some(p => {
-        const overlapX = Math.max(0, Math.min(x + ITEM_W, p.x + ITEM_W) - Math.max(x, p.x));
-        const overlapY = Math.max(0, Math.min(y + ITEM_H, p.y + ITEM_H) - Math.max(y, p.y));
-        const overlapArea = overlapX * overlapY;
-        return overlapArea / (ITEM_W * ITEM_H) > 0.6;
-      });
-
-      if (!overlaps) {
-        positions.push({ x, y });
-        placed = true;
-        break;
-      }
-    }
-    if (!placed) {
-      const zone = zones[Math.floor(Math.random() * zones.length)];
-      positions.push({
-        x: zone.x1 + Math.random() * (zone.x2 - zone.x1),
-        y: zone.y1 + Math.random() * (zone.y2 - zone.y1)
-      });
-    }
+    const pos = getScatterPosition(positions, windowRect, itemW, itemH);
+    positions.push({ ...pos, w: itemW, h: itemH });
   }
-  return positions;
+  return positions.map(({ x, y }) => ({ x, y }));
+}
+
+function finalizePreviewWindow(win, delay) {
+  mediaLayer.appendChild(win);
+
+  makeDraggable(win);
+
+  win.querySelector('.dot-red').addEventListener('click', function(e) {
+    e.stopPropagation();
+    win.classList.remove('visible');
+    win.classList.add('closing');
+    win.addEventListener('transitionend', () => {
+      const vid = win.querySelector('video');
+      if (vid) vid.pause();
+      win.remove();
+    }, { once: true });
+    setTimeout(() => { if (win.parentNode) win.remove(); }, 400);
+  });
+
+  setTimeout(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        bringToFront(win);
+        win.classList.add('visible');
+      });
+    });
+  }, delay);
+
+  return win;
 }
 
 function createPreviewWindow(file, folder, pos, delay) {
@@ -853,43 +892,23 @@ function createPreviewWindow(file, folder, pos, delay) {
     mediaEl.playsInline = true;
     body.appendChild(mediaEl);
   } else {
-    body.classList.add('tv-static-bg');
+    body.classList.add('preview-thumb');
     win.style.width = '110px';
     const mediaEl = document.createElement('img');
     mediaEl.src = src;
-    mediaEl.addEventListener('error', function() {
-      this.remove();
+    mediaEl.addEventListener('load', function() {
+      body.appendChild(mediaEl);
+      win.appendChild(body);
+      finalizePreviewWindow(win, delay);
     });
-    body.appendChild(mediaEl);
+    mediaEl.addEventListener('error', function() {
+      win.remove();
+    });
+    return win;
   }
 
   win.appendChild(body);
-  mediaLayer.appendChild(win);
-
-  makeDraggable(win);
-
-  win.querySelector('.dot-red').addEventListener('click', function(e) {
-    e.stopPropagation();
-    win.classList.remove('visible');
-    win.classList.add('closing');
-    win.addEventListener('transitionend', () => {
-      const vid = win.querySelector('video');
-      if (vid) vid.pause();
-      win.remove();
-    }, { once: true });
-    setTimeout(() => { if (win.parentNode) win.remove(); }, 400);
-  });
-
-  setTimeout(() => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        bringToFront(win);
-        win.classList.add('visible');
-      });
-    });
-  }, delay);
-
-  return win;
+  return finalizePreviewWindow(win, delay);
 }
 
 function getEmbedUrl(url) {
@@ -958,16 +977,20 @@ function createLinkWindow(url, folder, pos, delay, coverImage, embedVideo) {
 
   if (coverImage) {
     const body = document.createElement('div');
-    body.className = 'preview-body tv-static-bg';
+    body.className = 'preview-body preview-thumb';
     win.style.width = '110px';
     const img = document.createElement('img');
     img.src = MEDIA_BASE + '/' + folder + '/' + encodeURIComponent(coverImage);
     body.addEventListener('click', () => window.open(url, '_blank'));
-    img.addEventListener('error', function() {
-      this.remove();
+    img.addEventListener('load', function() {
+      body.appendChild(img);
+      win.appendChild(body);
+      finalizePreviewWindow(win, delay);
     });
-    body.appendChild(img);
-    win.appendChild(body);
+    img.addEventListener('error', function() {
+      win.remove();
+    });
+    return win;
   } else if (embedVideo) {
     const body = document.createElement('div');
     body.className = 'preview-body';
@@ -994,28 +1017,7 @@ function createLinkWindow(url, folder, pos, delay, coverImage, embedVideo) {
     }
   }
 
-  mediaLayer.appendChild(win);
-
-  makeDraggable(win);
-
-  win.querySelector('.dot-red').addEventListener('click', function(e) {
-    e.stopPropagation();
-    win.classList.remove('visible');
-    win.classList.add('closing');
-    win.addEventListener('transitionend', () => win.remove(), { once: true });
-    setTimeout(() => { if (win.parentNode) win.remove(); }, 400);
-  });
-
-  setTimeout(() => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        bringToFront(win);
-        win.classList.add('visible');
-      });
-    });
-  }, delay);
-
-  return win;
+  return finalizePreviewWindow(win, delay);
 }
 
 function dismissFolder(folder) {
@@ -1053,16 +1055,23 @@ function spawnFolder(folder) {
     }
   }
 
-  const winEl = document.getElementById('textedit-window');
-  const rect = winEl.getBoundingClientRect();
-  const positions = getScatterPositions(spawnEntries.length, rect);
-
   // Sort so linkimg spawns first (behind), everything else on top
   const sorted = spawnEntries.map((e, i) => ({ entry: e, idx: i }));
   sorted.sort((a, b) => {
     const aImg = a.entry.type === 'linkimg' ? 0 : 1;
     const bImg = b.entry.type === 'linkimg' ? 0 : 1;
     return aImg - bImg;
+  });
+
+  const winEl = document.getElementById('textedit-window');
+  const rect = winEl.getBoundingClientRect();
+  const placed = [];
+  const positions = [];
+  sorted.forEach(({ entry, idx }) => {
+    const size = getEntryScatterSize(entry);
+    const pos = getScatterPosition(placed, rect, size.w, size.h);
+    placed.push({ ...pos, w: size.w, h: size.h });
+    positions[idx] = pos;
   });
 
   sorted.forEach(({ entry, idx }, order) => {
