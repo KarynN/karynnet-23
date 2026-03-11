@@ -143,14 +143,18 @@
       align-items: center;
       justify-content: center;
     }
-    .preview-window.link-window .preview-body.tv-static-bg {
-      width: 400px;
-      height: 300px;
+    .preview-window .preview-body.tv-static-bg {
+      width: 110px;
+      height: 90px;
+      position: relative;
       background-color: #000;
       background-image: url("https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif");
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
+      overflow: hidden;
+    }
+    .preview-window.link-window .preview-body.tv-static-bg {
       cursor: pointer;
     }
     .preview-window.link-window .preview-body iframe {
@@ -169,8 +173,17 @@
       cursor: pointer;
     }
     .preview-window.link-window .preview-body.tv-static-bg img {
-      max-width: 400px;
-      max-height: 300px;
+      max-width: 110px;
+      max-height: 90px;
+    }
+    .preview-window .preview-body.tv-static-bg img {
+      display: block;
+      max-width: 110px;
+      max-height: 90px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      z-index: 1;
     }
 
     #press-window {
@@ -524,7 +537,6 @@
 let MEDIA_MAP = {};
 
 const MEDIA_BASE = 'https://media.karynnakamura.com/web_media';
-const TV_STATIC_BG = 'https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif';
 
 const VIDEO_EXTS = ['.mov','.mp4','.MOV','.MP4'];
 
@@ -841,8 +853,13 @@ function createPreviewWindow(file, folder, pos, delay) {
     mediaEl.playsInline = true;
     body.appendChild(mediaEl);
   } else {
+    body.classList.add('tv-static-bg');
+    win.style.width = '110px';
     const mediaEl = document.createElement('img');
     mediaEl.src = src;
+    mediaEl.addEventListener('error', function() {
+      this.remove();
+    });
     body.appendChild(mediaEl);
   }
 
@@ -942,8 +959,7 @@ function createLinkWindow(url, folder, pos, delay, coverImage, embedVideo) {
   if (coverImage) {
     const body = document.createElement('div');
     body.className = 'preview-body tv-static-bg';
-    body.style.backgroundImage = 'url("' + TV_STATIC_BG + '")';
-    win.style.width = '400px';
+    win.style.width = '110px';
     const img = document.createElement('img');
     img.src = MEDIA_BASE + '/' + folder + '/' + encodeURIComponent(coverImage);
     body.addEventListener('click', () => window.open(url, '_blank'));
