@@ -143,6 +143,16 @@
       align-items: center;
       justify-content: center;
     }
+    .preview-window.link-window .preview-body.tv-static-bg {
+      width: 400px;
+      height: 300px;
+      background-color: #000;
+      background-image: url("https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      cursor: pointer;
+    }
     .preview-window.link-window .preview-body iframe {
       display: block;
       width: 560px;
@@ -157,6 +167,10 @@
       height: auto;
       object-fit: contain;
       cursor: pointer;
+    }
+    .preview-window.link-window .preview-body.tv-static-bg img {
+      max-width: 400px;
+      max-height: 300px;
     }
 
     #press-window {
@@ -510,6 +524,7 @@
 let MEDIA_MAP = {};
 
 const MEDIA_BASE = 'https://media.karynnakamura.com/web_media';
+const TV_STATIC_BG = 'https://static.tumblr.com/3zmswwt/gL1ny5cm4/2cwrjc00.gif';
 
 const VIDEO_EXTS = ['.mov','.mp4','.MOV','.MP4'];
 
@@ -926,13 +941,14 @@ function createLinkWindow(url, folder, pos, delay, coverImage, embedVideo) {
 
   if (coverImage) {
     const body = document.createElement('div');
-    body.className = 'preview-body';
+    body.className = 'preview-body tv-static-bg';
+    body.style.backgroundImage = 'url("' + TV_STATIC_BG + '")';
+    win.style.width = '400px';
     const img = document.createElement('img');
     img.src = MEDIA_BASE + '/' + folder + '/' + encodeURIComponent(coverImage);
-    img.addEventListener('click', () => window.open(url, '_blank'));
-    img.addEventListener('load', function() {
-      const w = Math.min(this.naturalWidth, 380);
-      win.style.width = w + 'px';
+    body.addEventListener('click', () => window.open(url, '_blank'));
+    img.addEventListener('error', function() {
+      this.remove();
     });
     body.appendChild(img);
     win.appendChild(body);
