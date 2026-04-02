@@ -167,14 +167,16 @@
       top: auto;
       width: 380px;
       min-width: 280px;
-      min-height: 200px;
       z-index: 8;
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(0,0,0,0.3);
+      background: #fff;
+      height: fit-content;
     }
     #press-body {
       max-height: 60vh;
+      overflow-y: auto;
     }
     #press-body .press-heading {
       font-family: 'Quantico', sans-serif;
@@ -385,6 +387,34 @@
       z-index: 99;
     }
 
+    #email-link {
+      font-family: 'Quantico', sans-serif;
+      font-weight: 400;
+      letter-spacing: 5px;
+      font-size: 20px;
+      color: red;
+      text-decoration: none;
+      position: fixed;
+      bottom: 5px;
+      right: 1%;
+      z-index: 5;
+    }
+    #email-link:hover, #ig-link:hover {
+      opacity: 0.75;
+    }
+    #ig-link {
+      font-family: 'Quantico', sans-serif;
+      font-weight: 400;
+      letter-spacing: 5px;
+      font-size: 20px;
+      color: red;
+      text-decoration: none;
+      position: fixed;
+      bottom: 5px;
+      left: 1%;
+      z-index: 5;
+    }
+
     @media screen and (max-width: 768px) {
       .desktopimg {
         display: block;
@@ -465,6 +495,9 @@
     <img class="mini-folder" src="folder.png">
     <img class="mini-bug" src="bug.gif">
   </div>
+
+  <a id="email-link" href="mailto:karyn@interference.nyc">EMAIL</a>
+  <a id="ig-link" target="_blank" href="https://www.instagram.com/frog_spit_simulation/">@frog_spit_simulation</a>
 
   <div id="finder-frame-window" style="display:none;">
     <div class="titlebar">
@@ -616,7 +649,7 @@ function bringToFront(el) {
 }
 
 // Dragging logic
-function makeDraggable(el, handleSelector) {
+function makeDraggable(el, handleSelector, allowOffscreen) {
   const handle = handleSelector ? el.querySelector(handleSelector) : el;
   let dragging = false, startX, startY, origX, origY;
 
@@ -643,11 +676,17 @@ function makeDraggable(el, handleSelector) {
     const dy = e.clientY - startY;
     let newX = origX + dx;
     let newY = origY + dy;
-    // Clamp to screen bounds
     const w = el.offsetWidth;
     const h = el.offsetHeight;
-    newX = Math.max(0, Math.min(newX, window.innerWidth - w));
-    newY = Math.max(0, Math.min(newY, window.innerHeight - h));
+    if (allowOffscreen) {
+      // Allow up to halfway off any edge
+      newX = Math.max(-w / 2, Math.min(newX, window.innerWidth - w / 2));
+      newY = Math.max(-h / 2, Math.min(newY, window.innerHeight - h / 2));
+    } else {
+      // Clamp to screen bounds
+      newX = Math.max(0, Math.min(newX, window.innerWidth - w));
+      newY = Math.max(0, Math.min(newY, window.innerHeight - h));
+    }
     el.style.left = newX + 'px';
     el.style.top = newY + 'px';
   }
@@ -660,7 +699,7 @@ function makeDraggable(el, handleSelector) {
 }
 
 // Make textedit window draggable
-makeDraggable(document.getElementById('textedit-window'), '.titlebar');
+makeDraggable(document.getElementById('textedit-window'), '.titlebar', true);
 makeDraggable(document.getElementById('press-window'), '.titlebar');
 
 // Make finder window draggable
