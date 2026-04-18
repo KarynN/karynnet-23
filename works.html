@@ -55,12 +55,13 @@ body {
 	line-height: 0;
 }
 
+/* Beat basestyle.css `img { width: 100vw }` so the row can extend past one viewport */
 .project img,
 .project video {
 	display: block;
 	height: 85vh;
-	width: auto;
-	max-width: none;
+	width: auto !important;
+	max-width: none !important;
 }
 
 .project-title,
@@ -188,7 +189,7 @@ body {
 
 .project-blurb .blurb a {
 	color: white;
-	text-decoration: underline;
+	text-decoration: none;
 	filter: drop-shadow(0px 0px 5px cyan);
 }
 
@@ -205,7 +206,7 @@ body {
 	font-size: 11px;
 	letter-spacing: 2px;
 	color: white;
-	text-decoration: underline;
+	text-decoration: none;
 	margin-right: 14px;
 	filter: drop-shadow(0px 0px 5px cyan);
 }
@@ -229,28 +230,68 @@ body {
 	font-size: 0;
 	z-index: 100;
 	pointer-events: none;
+	overflow: visible;
 }
 
 .scrollbar .track {
 	position: relative;
 	flex: 1;
-	height: 1px;
-	background: rgba(255, 255, 255, 0.15);
+	height: 18px;
+	display: flex;
+	align-items: center;
 	cursor: pointer;
 	pointer-events: auto;
+	overflow: visible;
 }
 
+/* Line sits on vertical center of track so blob (also centered) aligns with it */
+.scrollbar .track::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 50%;
+	height: 1px;
+	transform: translateY(-50%);
+	background: rgba(255, 255, 255, 0.15);
+	pointer-events: none;
+}
+
+@keyframes scrollBlobWobble {
+	0%, 100% {
+		border-radius: 46% 54% 51% 49% / 50% 48% 52% 50%;
+	}
+	25% {
+		border-radius: 54% 46% 47% 53% / 45% 55% 48% 52%;
+	}
+	50% {
+		border-radius: 43% 57% 54% 46% / 53% 47% 44% 56%;
+	}
+	75% {
+		border-radius: 52% 48% 49% 51% / 48% 52% 54% 46%;
+	}
+}
+
+/* Small feathered thumb: centered on same axis as .track::before line */
 .scrollbar .blob {
 	position: absolute;
 	top: 50%;
 	left: 0;
 	width: 14px;
 	height: 14px;
-	border-radius: 50%;
-	background: rgba(0, 255, 255, 0.4);
+	margin: 0;
 	transform: translate(-50%, -50%);
-	filter: blur(4px) drop-shadow(0 0 12px rgba(0, 255, 255, 0.35)) drop-shadow(0 0 24px rgba(0, 255, 255, 0.18));
 	pointer-events: none;
+	background: radial-gradient(
+		circle at 50% 50%,
+		rgba(0, 255, 255, 0.55) 0%,
+		rgba(0, 255, 255, 0.15) 58%,
+		transparent 76%
+	);
+	border-radius: 46% 54% 51% 49% / 50% 48% 52% 50%;
+	animation: scrollBlobWobble 8s ease-in-out infinite;
+	filter: url(#scrollBlobNoise) blur(2px);
+	box-shadow: 0 0 8px rgba(0, 255, 255, 0.35);
 }
 
 /* info — same voice as .back on project pages (basestyle.css) */
@@ -365,7 +406,7 @@ button.portfolio-info-open:hover {
 	font-size: 11px;
 	letter-spacing: 2px;
 	color: white;
-	text-decoration: underline;
+	text-decoration: none;
 	margin: 0 0 0 0.35em;
 	filter: drop-shadow(0px 0px 5px cyan);
 }
@@ -383,6 +424,15 @@ button.portfolio-info-open:hover {
 </head>
 
 <body>
+
+<svg class="scroll-blob-filters" aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+	<defs>
+		<filter id="scrollBlobNoise" x="-32" y="-32" width="88" height="88" filterUnits="userSpaceOnUse">
+			<feTurbulence type="fractalNoise" baseFrequency="0.072" numOctaves="4" seed="11" stitchTiles="stitch" result="noise" />
+			<feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
+		</filter>
+	</defs>
+</svg>
 
 <div class="strip" id="strip"></div>
 
@@ -412,7 +462,7 @@ const PROJECTS = [
 	{
 		hosted: "https://media.karynnakamura.com/portfolio/spitballs_1.mp4",
 		title: "Spitballs",
-		skills: ["Procedural Animation", "Web Dev"]
+		skills: ["Procedural Animation", "Web"]
 	},
 	{
 		hosted: "https://www.dropbox.com/scl/fi/xzl2fovq1czv2tijmr9f2/_DSF6390-Edit.jpg?rlkey=f56tr0knoruh0rly1lj4uxtl7&st=oiaw6zwz&raw=1",
@@ -480,14 +530,14 @@ const PROJECTS = [
 	{
 		hosted: "https://media.karynnakamura.com/web_media/21/boringreality.jpg",
 		title: "Boring Reality",
-		skills: ["AI / Diffusion", "Video", "Animation"],
+		skills: ["Physical Installation", "Multichannel Video", "Live Video", "Camera Rigs", "Animatronics", "Realtime Diffusion (AI)"],
 		ext: "https://www.showstudio.com/projects/synthesis"
 	},
 	{
 		hosted: "https://media.karynnakamura.com/web_media/15/gfr9152-fthenakis.jpg",
 		title: "Situ Research",
 		blurb: "Visual investigations between advocacy, journalism, and law \u2014 with Situ Research.",
-		skills: ["Visual Investigation", "3D / Spatial", "Computer Vision"],
+		skills: ["Visual Investigations", "3D Reconstructions", "Computer Vision"],
 		ext: "https://situ.nyc/news/visual-investigations-between-advocacy-journalism-and-law-exhibition-opening-at-the-architekturmuseum-der-tum-oct-10-2024",
 		extLabel: "SITU.NYC"
 	},
@@ -614,7 +664,7 @@ PROJECTS.forEach((p, i) => {
 			if (p.page) {
 				const a = document.createElement('a');
 				a.href = p.page;
-				a.textContent = 'PROJECT PAGE';
+				a.textContent = 'INFO';
 				links.appendChild(a);
 			}
 			if (p.ext) {
@@ -640,7 +690,7 @@ window.addEventListener('wheel', function(e) {
 	if (delta === 0) return;
 	document.body.scrollLeft += delta;
 	document.documentElement.scrollLeft += delta;
-	scheduleUpdate();
+	updateIndicator();
 	e.preventDefault();
 }, { passive: false });
 
@@ -656,12 +706,7 @@ function updateIndicator() {
 	blob.style.left = (pct * 100) + '%';
 }
 
-function scheduleUpdate() {}
-
-(function loop() {
-	updateIndicator();
-	requestAnimationFrame(loop);
-})();
+window.addEventListener('scroll', updateIndicator, { passive: true });
 window.addEventListener('resize', updateIndicator);
 window.addEventListener('load', updateIndicator);
 
