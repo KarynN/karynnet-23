@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="basestyle.css" type="text/css">
+	<meta charset="UTF-8"/>
+	<meta author='Karyn Nakamura'>
+	<title>WORKS</title>
+	<meta name="viewport" content="initial-scale=1" />
+  	<link rel="image_src" href="folder.png"/>
+	<meta property="og:image" content="folder.png" />
+	<link rel="icon" href="folder.png">
+
+<style type="text/css">
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow-y: hidden;
+}
+
+body {
+	overflow-x: auto;
+	white-space: nowrap;
+	font-size: 0;
+	background-color: black;
+}
+
+.strip {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 100vh;
+	padding: 0 0 40px 40px;
+	box-sizing: border-box;
+	gap: 30px;
+}
+
+/* Trailing spacer: keeps min right margin + lets last card scroll toward viewport center.
+   max(40px, 15vw) avoids collapse when calc(50vw - 38vh) goes negative on tall/narrow screens. */
+.strip::after {
+	content: "";
+	flex: 0 0 auto;
+	width: max(40px, 15vw, calc(50vw - 38vh));
+	height: 1px;
+	align-self: center;
+	pointer-events: none;
+}
+
+.project {
+	position: relative;
+	height: 85vh;
+	flex: 0 0 auto;
+	line-height: 0;
+}
+
+.project img,
+.project video {
+	display: block;
+	height: 85vh;
+	width: auto;
+	max-width: none;
+}
+
+.project-title,
+.project-blurb,
+.project-skills {
+	position: absolute;
+	box-sizing: border-box;
+	line-height: normal;
+	opacity: 0;
+	transition: opacity 0.25s ease;
+	pointer-events: none;
+}
+
+.project-title {
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 4px 10px;
+	text-align: center;
+}
+
+.project-blurb {
+	bottom: 10px;
+	left: 8%;
+	width: 84%;
+	min-height: 110px;
+	padding: 20px 14px 22px 14px;
+	text-align: left;
+	white-space: normal;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.project-blurb::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	-webkit-mask-image:
+		linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%),
+		linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%);
+	-webkit-mask-composite: source-in;
+	mask-image:
+		linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%),
+		linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%);
+	mask-composite: intersect;
+	pointer-events: none;
+}
+
+.project-blurb > * {
+	position: relative;
+}
+
+.project:hover .project-title,
+.project:hover .project-blurb,
+.project:hover .project-skills {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.project-skills {
+	top: 100%;
+	left: 0;
+	padding-top: 6px;
+	width: 100%;
+	text-align: left;
+	white-space: normal;
+}
+
+
+.project-skills > * {
+	position: relative;
+}
+
+.project-skills .skill {
+	display: inline-block;
+	font-family: Jura;
+	font-size: 10px;
+	font-weight: 300;
+	letter-spacing: 2px;
+	line-height: 1.4em;
+	color: white;
+	text-transform: uppercase;
+	margin-right: 10px;
+	filter: drop-shadow(0px 0px 6px rgba(0, 255, 255, 0.55)) drop-shadow(0px 0px 14px rgba(0, 255, 255, 0.25));
+}
+
+.project-title h1 {
+	font-family: Quantico;
+	font-size: 18px;
+	line-height: 2em;
+	font-weight: 100;
+	letter-spacing: 8px;
+	margin: 0;
+	white-space: nowrap;
+	color: red;
+}
+
+.project-blurb .skills {
+	display: block;
+	font-family: Jura;
+	font-size: 13px;
+	font-weight: 300;
+	letter-spacing: 3px;
+	line-height: 1.4em;
+	color: white;
+	text-transform: uppercase;
+	margin-top: 4px;
+	margin-bottom: 6px;
+}
+
+.project-blurb .blurb {
+	font-family: Jura;
+	font-size: 13px;
+	font-weight: 300;
+	line-height: 1.4em;
+	letter-spacing: 1px;
+	color: white;
+	display: block;
+	margin: 0 0 6px 0;
+}
+
+.project-blurb .blurb a {
+	color: white;
+	text-decoration: underline;
+	filter: drop-shadow(0px 0px 5px cyan);
+}
+
+.project-blurb .blurb a:hover {
+	color: red;
+}
+
+.project-blurb .links {
+	display: block;
+}
+
+.project-blurb .links a {
+	font-family: Aldrich;
+	font-size: 11px;
+	letter-spacing: 2px;
+	color: white;
+	text-decoration: underline;
+	margin-right: 14px;
+	filter: drop-shadow(0px 0px 5px cyan);
+}
+
+.project-blurb .links a:hover {
+	color: white;
+	filter: drop-shadow(0px 0px 8px cyan);
+}
+
+/* bottom scroll indicator */
+.scrollbar {
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 3vh;
+	width: 30vw;
+	min-width: 240px;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	font-size: 0;
+	z-index: 100;
+	pointer-events: none;
+}
+
+.scrollbar .track {
+	position: relative;
+	flex: 1;
+	height: 1px;
+	background: rgba(255, 255, 255, 0.15);
+	cursor: pointer;
+	pointer-events: auto;
+}
+
+.scrollbar .blob {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: rgba(0, 255, 255, 0.4);
+	transform: translate(-50%, -50%);
+	filter: blur(4px) drop-shadow(0 0 12px rgba(0, 255, 255, 0.35)) drop-shadow(0 0 24px rgba(0, 255, 255, 0.18));
+	pointer-events: none;
+}
+
+/* info — same voice as .back on project pages (basestyle.css) */
+.portfolio-footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 150;
+	padding: 0 0 8px 10px;
+	pointer-events: auto;
+	line-height: normal;
+	font-size: 16px;
+}
+
+button.portfolio-info-open {
+	font-family: Quantico, sans-serif;
+	letter-spacing: 6px;
+	color: red;
+	filter: drop-shadow(0px 0px 0px black);
+	text-decoration: none;
+	margin-left: 0;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	font-size: inherit;
+}
+
+button.portfolio-info-open:hover {
+	color: #ff4444;
+}
+
+.info-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 2000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: min(5vh, 40px) min(5vw, 32px);
+	box-sizing: border-box;
+	background: transparent;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.info-overlay.is-open {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+.info-modal {
+	position: relative;
+	max-width: 560px;
+	width: 100%;
+	max-height: min(78vh, 640px);
+	overflow: auto;
+	padding: 28px 28px 32px;
+	box-sizing: border-box;
+	white-space: normal;
+	line-height: normal;
+	border: none;
+	background: none;
+	box-shadow: none;
+	border-radius: 12px;
+}
+
+/* Blur + tint + feathered edges (same mask idea as .project-blurb::before) */
+.info-modal::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	-webkit-mask-image:
+		linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%),
+		linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
+	-webkit-mask-composite: source-in;
+	mask-image:
+		linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%),
+		linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
+	mask-composite: intersect;
+	pointer-events: none;
+	z-index: 0;
+	border-radius: inherit;
+}
+
+.info-modal p {
+	position: relative;
+	z-index: 1;
+	margin: 0;
+	font-family: Jura, sans-serif;
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 1.55em;
+	letter-spacing: 0.5px;
+	color: white;
+	text-align: justify;
+}
+
+.info-modal .info-contact {
+	margin-top: 1.25em;
+	text-align: left;
+}
+
+.info-modal .info-contact a {
+	font-family: Aldrich, sans-serif;
+	font-size: 11px;
+	letter-spacing: 2px;
+	color: white;
+	text-decoration: underline;
+	margin: 0 0 0 0.35em;
+	filter: drop-shadow(0px 0px 5px cyan);
+}
+
+.info-modal .info-contact a:first-of-type {
+	margin-left: 0;
+}
+
+.info-modal .info-contact a:hover {
+	color: white;
+	filter: drop-shadow(0px 0px 8px cyan);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="strip" id="strip"></div>
+
+<div class="scrollbar">
+	<div class="track" id="track">
+		<div class="blob" id="blob"></div>
+	</div>
+</div>
+
+<div class="portfolio-footer">
+	<button type="button" class="portfolio-info-open" id="info-open" aria-haspopup="dialog" aria-controls="info-dialog">INFO</button>
+</div>
+
+<div class="info-overlay" id="info-overlay" aria-hidden="true">
+	<div class="info-modal" id="info-dialog" role="dialog" aria-modal="true" aria-label="About" tabindex="-1">
+		<p>Karyn Nakamura is an artist and engineer from Tokyo, now based in New York. Her work explores the technical infrastructures underlying systems of perception and communication. Trained at the Massachusetts Institute of Technology, she is a recipient of the Schnitzer Prize, Wiesner Award, was a 2024 Steve Jobs Archive Fellow, and on the DAZED 100. Her work has been exhibited internationally at SHOWStudio, Singapore International Festival of Arts, mother&rsquo;s tankstation, as well as inside an abandoned Frank Gehry designed pub. In parallel, she has conducted research in AI and computer vision with the Human AI Collaboration Lab, SITU Research, was previously part of the Civic Data Design Lab and realizes ambitious technical productions for clients like Google and Audio-Technica.</p>
+		<p class="info-contact">
+			<a href="mailto:karyn@interference.nyc">karyn@interference.nyc</a>
+			<span aria-hidden="true"> · </span>
+			<a href="https://www.instagram.com/frog_spit_simulation/" target="_blank" rel="noopener noreferrer">@frog_spit_simulation</a>
+		</p>
+	</div>
+</div>
+
+<script>
+const PROJECTS = [
+	{
+		hosted: "https://media.karynnakamura.com/portfolio/spitballs_1.mp4",
+		title: "Spitballs",
+		skills: ["Procedural Animation", "Web Dev"]
+	},
+	{
+		hosted: "https://www.dropbox.com/scl/fi/xzl2fovq1czv2tijmr9f2/_DSF6390-Edit.jpg?rlkey=f56tr0knoruh0rly1lj4uxtl7&st=oiaw6zwz&raw=1",
+		title: "noise pile",
+		blurb: "A sculpture of disassembled music hardware and 8 channels of generative video that encapsulated a NY-based jazz duo performing live from inside at DOMICILE Tokyo.",
+		skills: ["Physical Installation", "Sculpture", "Generative Animation", "Computer Vision", "Live Performance"],
+		page: "2023/noise pile.html"
+	},
+	{
+		hosted: "https://www.dropbox.com/s/k897huhbmegqx8g/1.%20DSC00555.jpg?raw=1",
+		title: "116 X 31",
+		blurb: "An interactive projection installation event on Simmons Hall, a 400ft wide 10-story MIT dorm designed by Steven Holl Architects.",
+		skills: ["Projection Mapping", "Interactive Installation", "Animation"],
+		page: "2022/116 X 31.html"
+	},
+	{
+		hosted: "https://media.karynnakamura.com/portfolio/hotaru_1.jpg",
+		title: "Audio Technica HOTARU Activation",
+		skills: ["Live Video", "Multichannel Video", "Audio Visualization", "Oscilloscope"],
+		ext: "https://www.youtube.com/watch?v=mOyhXwDSDp8",
+		extLabel: "Hotaru | Garden of Temporal Traces  YOUTUBE"
+	},
+	{
+		hosted: "https://www.dropbox.com/scl/fi/sf2c03wc8sp2vaom8twu9/s_Lara-Hughes-Install-2.jpg?rlkey=a97qmz9xx7yq1vznqvtu2ooqx&st=rwbx80af&raw=1",
+		title: "Surface Tension",
+		blurb: "A composition of video, a slide projector, a drone, security cameras, and lasers featuring a microscopic cinema in which individual neuron cells perform as actors trying to form a \u201CTHOUGHT\u201D using the technology of optical tweezers.",
+		skills: ["Physical Installation", "Multi-channel Video", "AI / Diffusion", "Microscopy"],
+		page: "2025/Surface Tension.html",
+		ext: "https://www.showstudio.com/projects/surface-tension"
+	},
+	{
+		hosted: "https://media.karynnakamura.com/portfolio/THOUGHT_1.mp4",
+		title: "Surface Tension",
+		blurb: "Microscope footage of individual neuron cells animated with optical tweezers attempting to form the word \u201CTHOUGHT.\u201D The kernel of truth inside Surface Tension.",
+		skills: ["Microscopy", "Animation", "Scientific Imaging"],
+		page: "2025/Surface Tension.html"
+	},
+	{
+		hosted: "https://media.karynnakamura.com/web_media/8/ps3.mov",
+		title: "Perfect Syntax",
+		blurb: "A video exploring AI world simulators vs. the syntactic logic of the world. An artificial video muscle emerges from the skeletons of a frame and reaches to stitch together the next, continuously patching up distorted fragments.",
+		skills: ["AI / Diffusion", "Video", "Animation"],
+		page: "2024/Perfect Syntax.html",
+		ext: "https://www.nowness.asia/series/video-art-visions/perfect-syntax-karyn-nakamura"
+	},
+	{
+		hosted: "https://media.karynnakamura.com/web_media/6/IMG_2288.jpeg",
+		title: "Break My Body Liberate My Soul",
+		hideTitle: true,
+		blurb: "An abandoned Frank Gehry pub inside MIT CSAIL filled with 60 screens and a 20ft tall, 20-channel video sculpture presented as a 1 hour performance for 3 months.",
+		skills: ["Physical Installation", "Sculpture", "Multi-channel Video", "Hardware", "Performance"],
+		page: "2023/BREAK MY BODY LIBERATE MY SOUL.html",
+		ext: "https://www.bostonartreview.com/read/mit-pub-performance-karyn-nakamura"
+	},
+	{
+		hosted: "https://media.karynnakamura.com/portfolio/DISC_launch_1.JPG",
+		title: "DISC Magazine Launch",
+		skills: ["Interactive Installation", "Generative Animation"]
+	},
+	{
+		hosted: "https://media.karynnakamura.com/portfolio/pond_1.mp4",
+		title: "POND",
+		skills: ["Procedural Animation", "Houdini"]
+	},
+	{
+		hosted: "https://media.karynnakamura.com/web_media/21/boringreality.jpg",
+		title: "Boring Reality",
+		skills: ["AI / Diffusion", "Video", "Animation"],
+		ext: "https://www.showstudio.com/projects/synthesis"
+	},
+	{
+		hosted: "https://media.karynnakamura.com/web_media/15/gfr9152-fthenakis.jpg",
+		title: "Situ Research",
+		blurb: "Visual investigations between advocacy, journalism, and law \u2014 with Situ Research.",
+		skills: ["Visual Investigation", "3D / Spatial", "Computer Vision"],
+		ext: "https://situ.nyc/news/visual-investigations-between-advocacy-journalism-and-law-exhibition-opening-at-the-architekturmuseum-der-tum-oct-10-2024",
+		extLabel: "SITU.NYC"
+	},
+	{
+		hosted: "https://www.dropbox.com/s/x7384y3tnjqyeo6/VisualizeNYC.png?raw=1",
+		title: "Visualize NYC",
+		blurb: "Data visualization made with d3.js for the MIT Civic Data Design Lab's Visualize NYC 2021.",
+		skills: ["Data Visualization", "Web / d3.js"],
+		page: "2021/Data Visualizations.html",
+		ext: "https://civicdatadesignlab.mit.edu/Visualize-NYC-2021"
+	},
+	{
+		hosted: "https://www.dropbox.com/s/ho0g0hbakmkvww9/8.%20mappmontreal.jpeg?raw=1",
+		title: "Mapp Montreal",
+		blurb: "Piano notes visualized as paths of lines projected onto buildings \u2014 a live interactive mapping installation at Mapp Montreal.",
+		skills: ["Projection Mapping", "Audio Visualization", "Live Performance"],
+		page: "2021/Sound Paths.html"
+	},
+	{
+		hosted: "https://www.dropbox.com/s/hdkygzlfjazzfe1/DSCF1659.jpg?raw=1",
+		title: "Enclosing Nothing",
+		blurb: "An interactive installation of translucent sheets, 4 lights, and 8 box fans that respond to your presence in vs. outside of the enclosure.",
+		skills: ["Physical Installation", "Interactive", "Sculpture"],
+		page: "2021/Enclosing Nothing.html"
+	},
+	{
+		hosted: "https://www.dropbox.com/scl/fi/0eljy4a666lzut7lrxayw/pxl_20240621_223254407.raw-01.cover.jpg?rlkey=l2vnehrufabfyn2x8lfapwy3z&st=8mvkd53q&raw=1",
+		title: "Device for Deterritorialization",
+		blurb: "A two-channel video displayed through a custom VGA cable which takes two inputs and swaps 3 wires inside the VGA, causing the video on each monitor to be a mix of the two inputs.",
+		skills: ["Hardware", "Video", "Physical Installation"],
+		page: "2024/Device for deterritorialization.html"
+	}
+];
+
+const VIDEO_EXTS = ['.mov', '.mp4', '.MOV', '.MP4'];
+function isVideo(f) { return VIDEO_EXTS.some(ext => f.endsWith(ext)); }
+
+function extLabel(url) {
+	try {
+		let host = new URL(url).hostname.replace(/^www\./, '');
+		const parts = host.split('.');
+		// drop the TLD (and country code subtld like .co.uk if present)
+		let name;
+		if (parts.length >= 3 && parts[parts.length - 2].length <= 3) {
+			name = parts[parts.length - 3];
+		} else if (parts.length >= 2) {
+			name = parts[parts.length - 2];
+		} else {
+			name = parts[0];
+		}
+		return name.toUpperCase();
+	} catch (e) {
+		return 'LINK';
+	}
+}
+
+const strip = document.getElementById('strip');
+
+PROJECTS.forEach((p, i) => {
+	const proj = document.createElement('div');
+	proj.className = 'project';
+	proj.dataset.index = i;
+
+	const src = p.hosted;
+	let media;
+	if (isVideo(src)) {
+		media = document.createElement('video');
+		media.src = src;
+		media.autoplay = true;
+		media.muted = true;
+		media.loop = true;
+		media.playsInline = true;
+	} else {
+		media = document.createElement('img');
+		media.src = src;
+		media.alt = p.title;
+	}
+	proj.appendChild(media);
+
+	if (!p.hideTitle) {
+		const titleWrap = document.createElement('div');
+		titleWrap.className = 'project-title';
+		const h1 = document.createElement('h1');
+		h1.textContent = p.title;
+		titleWrap.appendChild(h1);
+		proj.appendChild(titleWrap);
+	}
+
+	if (p.skills && p.skills.length) {
+		const skillsWrap = document.createElement('div');
+		skillsWrap.className = 'project-skills';
+		p.skills.forEach(s => {
+			const line = document.createElement('span');
+			line.className = 'skill';
+			line.textContent = '[' + s + ']';
+			skillsWrap.appendChild(line);
+		});
+		proj.appendChild(skillsWrap);
+	}
+
+	if (p.blurb || p.page || p.ext) {
+		const blurbWrap = document.createElement('div');
+		blurbWrap.className = 'project-blurb';
+
+		if (p.blurb) {
+			const blurb = document.createElement('span');
+			blurb.className = 'blurb';
+			if (p.blurbHref) {
+				const a = document.createElement('a');
+				a.href = p.blurbHref;
+				a.target = '_blank';
+				a.rel = 'noopener';
+				a.textContent = p.blurb;
+				blurb.appendChild(a);
+			} else {
+				blurb.textContent = p.blurb;
+			}
+			blurbWrap.appendChild(blurb);
+		}
+
+		if (p.page || p.ext) {
+			const links = document.createElement('span');
+			links.className = 'links';
+			if (p.page) {
+				const a = document.createElement('a');
+				a.href = p.page;
+				a.textContent = 'PROJECT PAGE';
+				links.appendChild(a);
+			}
+			if (p.ext) {
+				const a = document.createElement('a');
+				a.href = p.ext;
+				a.target = '_blank';
+				a.rel = 'noopener';
+				a.textContent = p.extLabel || extLabel(p.ext);
+				links.appendChild(a);
+			}
+			blurbWrap.appendChild(links);
+		}
+
+		proj.appendChild(blurbWrap);
+	}
+	strip.appendChild(proj);
+
+});
+
+// Wheel-to-horizontal scroll
+window.addEventListener('wheel', function(e) {
+	var delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+	if (delta === 0) return;
+	document.body.scrollLeft += delta;
+	document.documentElement.scrollLeft += delta;
+	scheduleUpdate();
+	e.preventDefault();
+}, { passive: false });
+
+// Scroll indicator sync
+const blob = document.getElementById('blob');
+const track = document.getElementById('track');
+
+function updateIndicator() {
+	const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
+	const scrollWidth = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth);
+	const maxScroll = Math.max(1, scrollWidth - window.innerWidth);
+	const pct = Math.min(1, Math.max(0, scrollLeft / maxScroll));
+	blob.style.left = (pct * 100) + '%';
+}
+
+function scheduleUpdate() {}
+
+(function loop() {
+	updateIndicator();
+	requestAnimationFrame(loop);
+})();
+window.addEventListener('resize', updateIndicator);
+window.addEventListener('load', updateIndicator);
+
+// Click on track or tick to jump
+track.addEventListener('click', function(e) {
+	const rect = track.getBoundingClientRect();
+	const pct = (e.clientX - rect.left) / rect.width;
+	const maxScroll = (document.body.scrollWidth || document.documentElement.scrollWidth) - window.innerWidth;
+	const target = pct * maxScroll;
+	document.body.scrollLeft = target;
+	document.documentElement.scrollLeft = target;
+});
+
+updateIndicator();
+
+(function () {
+	const overlay = document.getElementById('info-overlay');
+	const openBtn = document.getElementById('info-open');
+	const modal = document.getElementById('info-dialog');
+
+	function openInfo() {
+		overlay.classList.add('is-open');
+		overlay.setAttribute('aria-hidden', 'false');
+		modal.focus();
+	}
+
+	function closeInfo() {
+		overlay.classList.remove('is-open');
+		overlay.setAttribute('aria-hidden', 'true');
+		openBtn.focus();
+	}
+
+	openBtn.addEventListener('click', function (e) {
+		e.stopPropagation();
+		openInfo();
+	});
+
+	overlay.addEventListener('click', function (e) {
+		if (e.target === overlay) closeInfo();
+	});
+
+	modal.addEventListener('click', function (e) {
+		e.stopPropagation();
+	});
+})();
+</script>
+
+</body>
+</html>
