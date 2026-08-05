@@ -213,8 +213,39 @@
       min-height: 200px;
       z-index: 10;
       border-radius: 8px;
-      overflow: hidden;
+      overflow: visible;
       box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(0,0,0,0.3);
+    }
+
+    .open-anything-note {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      max-width: calc(100% - 24px);
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(245, 250, 255, 0.94);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.22), 0 0 0 0.5px rgba(90, 148, 173, 0.35);
+      color: #333;
+      font-family: 'Jura', sans-serif;
+      font-size: 13px;
+      line-height: 1.25;
+      letter-spacing: 0.4px;
+      z-index: 30;
+      pointer-events: auto;
+      white-space: nowrap;
+      transform: none;
+    }
+
+    .open-anything-note a {
+      color: #5a94ad;
+      text-decoration: none;
+      text-shadow: 0 0 6px rgba(90, 148, 173, 0.4);
+    }
+
+    .open-anything-note a:hover {
+      color: #4a849d;
+      text-shadow: 0 0 8px rgba(80, 130, 255, 0.7), 0 0 18px rgba(80, 130, 255, 0.4);
     }
 
     .titlebar {
@@ -390,14 +421,19 @@
     #email-link {
       font-family: 'Quantico', sans-serif;
       font-weight: 400;
-      letter-spacing: 5px;
-      font-size: 20px;
+      letter-spacing: clamp(0.8px, 0.75vw, 4px);
+      font-size: clamp(11px, 3.3vw, 18px);
       color: red;
       text-decoration: none;
       position: fixed;
       bottom: 5px;
       right: 1%;
+      max-width: 28vw;
       z-index: 5;
+      opacity: 1;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
     }
     #email-link:hover, #ig-link:hover {
       opacity: 0.75;
@@ -405,14 +441,18 @@
     #ig-link {
       font-family: 'Quantico', sans-serif;
       font-weight: 400;
-      letter-spacing: 5px;
-      font-size: 20px;
+      letter-spacing: clamp(0.8px, 0.75vw, 4px);
+      font-size: clamp(11px, 3.3vw, 18px);
       color: red;
       text-decoration: none;
       position: fixed;
       bottom: 5px;
       left: 1%;
+      max-width: 68vw;
       z-index: 5;
+      opacity: 1;
+      white-space: nowrap;
+      overflow: hidden;
     }
 
     @media screen and (max-width: 768px) {
@@ -452,31 +492,50 @@
       #textedit-window {
         position: fixed;
         top: auto !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        width: 100vw !important;
+        bottom: 42px !important;
+        left: 12px !important;
+        right: 12px !important;
+        width: calc(100vw - 24px) !important;
         height: auto !important;
         min-width: 0;
         min-height: 0;
-        border-radius: 0;
-        box-shadow: none;
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(0,0,0,0.25);
         z-index: 2;
         overflow: hidden !important;
+      }
+      .open-anything-note {
+        top: 10px;
+        right: 10px;
+        max-width: calc(100vw - 20px);
+        white-space: normal;
       }
       .titlebar {
         cursor: default;
       }
       #prose-body {
         background: #fff !important;
-        max-height: 50vh !important;
-        height: 50vh;
+        max-height: 46vh !important;
+        height: 46vh;
         padding: 20px 18px;
         font-size: 15px !important;
         color: #333 !important;
       }
       .trigger {
         cursor: pointer;
+      }
+    }
+
+    @media screen and (max-width: 430px) {
+      #ig-link,
+      #email-link {
+        font-size: clamp(11px, 3.4vw, 13px);
+        letter-spacing: 0.8px;
+        bottom: 5px;
+      }
+
+      #ig-link {
+        max-width: 70vw;
       }
     }
 
@@ -488,6 +547,7 @@
   <img class="desktopimg" src="desktop.png">
   <img id="mobile-bg" style="display:none;" src="">
   <div id="mobile-media-area"></div>
+  <div class="open-anything-note">open to anything! please email me at <a href="mailto:karyn@interference.nyc">karyn@interference.nyc</a></div>
 
   <div id="media-layer"></div>
 
