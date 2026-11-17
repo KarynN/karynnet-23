@@ -1177,11 +1177,20 @@ function openRecentWorks() {
   ];
   const bio = document.getElementById('textedit-window');
   const positions = getScatterPositions(recentWorks.length, bio.getBoundingClientRect());
-  recentWorks.forEach((work, i) => {
+  const imagesReady = recentWorks.map((work, i) => {
     const win = createPreviewWindow(work.file, work.folder, positions[i], i * 120, 'recent-works');
-    win.querySelector('img').alt = work.title;
+    const img = win.querySelector('img');
+    img.alt = work.title;
     win.querySelector('.titlebar-text').textContent = work.title;
+    return new Promise(resolve => {
+      if (img.complete) return resolve();
+      img.addEventListener('load', resolve, { once: true });
+      img.addEventListener('error', resolve, { once: true });
+    });
   });
+  // Let the images load and their staggered opening animations finish first.
+  Promise.all([...imagesReady, new Promise(resolve => setTimeout(resolve, 1000))])
+    .then(() => bringToFront(bio));
 }
 
 function getProjectUrl(folder) {
