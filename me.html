@@ -331,6 +331,13 @@
       text-shadow: 0 0 8px greenyellow, 0 0 16px rgba(173, 255, 47, 0.5), 0 0 24px rgba(173, 255, 47, 0.3);
     }
 
+    .credit a {
+      color: inherit;
+      text-shadow: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
     .window-body .credit-block {
       font-family: 'Quantico', sans-serif;
       font-size: 12px;
@@ -633,11 +640,11 @@ function parseCSV(text) {
 }
 
 // Load media map then me.txt
-fetch('media-map.csv')
+fetch('media-map.csv?v=20261117-links', { cache: 'no-cache' })
   .then(r => r.text())
   .then(csv => {
     MEDIA_MAP = parseCSV(csv);
-    return fetch('me.txt');
+    return fetch('me.txt?v=20261117-links', { cache: 'no-cache' });
   })
   .then(r => r.text())
   .then(text => {
@@ -653,6 +660,9 @@ function annotateLine(text) {
       return phrase;
     }
     return '<span class="trigger" data-folder="' + folder + '">' + phrase + '</span>';
+  }).replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, function(match, label, url) {
+    const safeUrl = url.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    return '<a href="' + safeUrl + '" target="_blank" rel="noopener noreferrer">' + label + '</a>';
   });
 }
 
