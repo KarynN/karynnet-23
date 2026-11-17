@@ -1,7 +1,11 @@
-Hi! My name is [1]Karyn[/1]. I'm originally from Tokyo, came to the US to go to [4]MIT[/4] and now based in New York. I am deeply obsessed with the technical infrastructure of systems that shape communication, perception, and storytelling. I LOVE chasing weird problems like: 
+Hi! My name is [1]Karyn[/1]. I'm originally from Tokyo, came to the US to go to [4]MIT[/4] and now based as an artist and engineer in New York. I am deeply obsessed with the technical infrastructure of systems that shape communication, perception. I LOVE chasing weird problems like:
 
 - [17] When we rely on technology as an intermediary for vision, how do we validate its interpretations? [/17] And how to make a microscopic film by using the kinetic energy of light to [20]puppeteer neurons [/20]
 Nick Knight, SHOWStudio, Steve Jobs Archive
+
+- How might aesthetics help us make sense of complex systems? And fantasizing about LLMs as [spitballs]parasitic sentient spitballs[/spitballs].
+
+- How can we use technology to create [large_interactives]new ways[/large_interactives] of expressing ourselves, perceiving the world, and representing what we find?
 
 - How might the tools we use to understand the world be designed to enhance away its truths? And how to build an AI beautification machine and a bunch of [21] animatronic "trash robots"[/21] for New York Fashion Week S/S 26
 Zoo as Zoo, SHOWStudio

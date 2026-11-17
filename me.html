@@ -620,9 +620,9 @@ function parseCSV(text) {
   for (const line of lines) {
     if (!line.trim()) continue;
     // Handle quoted values (for filenames with commas)
-    const match = line.match(/^(\d+),(file|link|linkimg|linkvideo|project),(".*"|[^,]*),?(.*)$/);
+    const match = line.match(/^([A-Za-z0-9_-]+),(file|link|linkimg|linkvideo|project),(".*"|[^,]*),?(.*)$/);
     if (!match) continue;
-    const folder = parseInt(match[1]);
+    const folder = match[1];
     const type = match[2];
     const value = match[3].replace(/^"|"$/g, '');
     const extra = (match[4] || '').trim();
@@ -643,11 +643,12 @@ fetch('media-map.csv')
   .then(text => {
     renderProse(text);
     bindTriggers();
+    openRecentWorks();
   });
 
 function annotateLine(text) {
-  return text.replace(/\[(\d+)\](.*?)\[\/\1\]/g, function(match, num, phrase) {
-    const folder = parseInt(num);
+  return text.replace(/\[([A-Za-z0-9_-]+)\](.*?)\[\/\1\]/g, function(match, num, phrase) {
+    const folder = num;
     if (!MEDIA_MAP[folder] || MEDIA_MAP[folder].length === 0) {
       return phrase;
     }
@@ -898,13 +899,13 @@ function getScatterPositions(count, windowRect) {
   return positions;
 }
 
-function createPreviewWindow(file, folder, pos, delay) {
+function createPreviewWindow(file, folder, pos, delay, group = folder) {
   delay = delay || 0;
   const src = MEDIA_BASE + '/' + folder + '/' + encodeURIComponent(file);
 
   const win = document.createElement('div');
   win.className = 'preview-window';
-  win.dataset.folder = folder;
+  win.dataset.folder = group;
   win.style.left = pos.x + 'px';
   win.style.top = pos.y + 'px';
 
@@ -1143,6 +1144,24 @@ function spawnFolder(folder) {
       createPreviewWindow(entry.value, folder, positions[idx], order * 120);
     }
   });
+}
+
+// Open a curated selection of recent work alongside the bio on each visit.
+function openRecentWorks() {
+  const recentWorks = [
+    { folder: 'large_interactives', file: 'web_media_h&m_h&mxshowtsudio.jpg', title: 'Recent work — H&M x SHOWstudio' },
+    { folder: 'large_interactives', file: 'web_media_trpxwired_62040010.JPEG', title: 'Recent work — T. Rowe Price x WIRED' },
+    { folder: '7x7', file: '683482950_18586864006031237_2957485152704557779_n.jpg', title: 'Recent work — Rhizome 7×7' },
+    { folder: '17', file: 's_Lara Hughes Install 2.jpg', title: 'Recent work — Surface Tension' }
+  ];
+  const bio = document.getElementById('textedit-window');
+  const positions = getScatterPositions(recentWorks.length, bio.getBoundingClientRect());
+  recentWorks.forEach((work, i) => {
+    const win = createPreviewWindow(work.file, work.folder, positions[i], i * 120, 'recent-works');
+    win.querySelector('img').alt = work.title;
+    win.querySelector('.titlebar-text').textContent = work.title;
+  });
+  setTimeout(() => bringToFront(bio), 1000);
 }
 
 function getProjectUrl(folder) {
