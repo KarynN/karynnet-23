@@ -17,7 +17,7 @@ Human AI Collaboration Lab
 - How do we develop and calibrate trust in AI-powered [15]tooling for analyzing video evidence?[/15] 
 SITU Research
 
-- How to build a camera-based auto-calibration pipeline for a 22 camera, 34 projector system 
+- How to build a camera-based auto-calibration pipeline for a [p57]22 camera, 34 projector system[/p57] 
 Google, Spectra Studio
 
 - Exploring the [8]syntactic logic of AI video generation[/8] (wayyy back in 2023)

@@ -650,11 +650,11 @@ function parseCSV(text) {
 }
 
 // Load media map then me.txt
-fetch('media-map.csv?v=20261117-links', { cache: 'no-cache' })
+fetch('media-map.csv?v=20261117-p57', { cache: 'no-cache' })
   .then(r => r.text())
   .then(csv => {
     MEDIA_MAP = parseCSV(csv);
-    return fetch('me.txt?v=20261117-links', { cache: 'no-cache' });
+    return fetch('me.txt?v=20261117-p57', { cache: 'no-cache' });
   })
   .then(r => r.text())
   .then(text => {
