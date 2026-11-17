@@ -1149,10 +1149,10 @@ function spawnFolder(folder) {
 // Open a curated selection of recent work alongside the bio on each visit.
 function openRecentWorks() {
   const recentWorks = [
-    { folder: 'large_interactives', file: 'web_media_h&m_h&mxshowtsudio.jpg', title: 'Recent work — H&M x SHOWstudio' },
-    { folder: 'large_interactives', file: 'web_media_trpxwired_62040010.JPEG', title: 'Recent work — T. Rowe Price x WIRED' },
-    { folder: '7x7', file: '683482950_18586864006031237_2957485152704557779_n.jpg', title: 'Recent work — Rhizome 7×7' },
-    { folder: '17', file: 's_Lara Hughes Install 2.jpg', title: 'Recent work — Surface Tension' }
+    { folder: 'large_interactives', file: 'web_media_h&m_h&mxshowtsudio.jpg', title: 'Recently — H&M x SHOWstudio' },
+    { folder: 'large_interactives', file: 'web_media_trpxwired_62040010.JPEG', title: 'Recently — T. Rowe Price x WIRED' },
+    { folder: '7x7', file: '683482950_18586864006031237_2957485152704557779_n.jpg', title: 'Recently — Rhizome 7×7' },
+    { folder: '17', file: 's_Lara Hughes Install 2.jpg', title: 'Recently — Surface Tension' }
   ];
   const bio = document.getElementById('textedit-window');
   const positions = getScatterPositions(recentWorks.length, bio.getBoundingClientRect());
